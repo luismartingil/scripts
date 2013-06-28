@@ -2,7 +2,7 @@
 #
 # Installation script for the restund STUN server.
 # Author: luismartingil
-#
+# Year: 2013
  
 WEB=http://www.creytiv.com/pub/
 re=re-0.4.3
