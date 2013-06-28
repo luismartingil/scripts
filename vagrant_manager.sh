@@ -26,7 +26,7 @@ case $@ in
 	;;
     *)
 	echo 'Please select start/stop'
-	exit
+	exit 0
 	;;
 esac
 
