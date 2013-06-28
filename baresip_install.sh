@@ -2,9 +2,10 @@
 #
 # Bash script to install the baresip SIP client.
 # Author: luismartingil
+# Year: 2012
 #
 # Ubuntu installation script
-# Year: 2012
+
 
 WEB=http://www.creytiv.com/pub/
 ARRAY=( re-0.4.2 rem-0.4.2 baresip-0.4.3 )
