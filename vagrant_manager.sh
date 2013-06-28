@@ -5,7 +5,10 @@
 # Year: 2012
 #
 
+# Root folder where the vagrant boxes are stored.
 ROOT=/Volumes/lmartin_data/vagrant/
+
+# This ARRAY contains the folder names of the vagrant boxes.
 ARRAY=( 
     100ua-debian-squeeze-amd64
     101ua-pjsua-debian-squeeze-amd64 
