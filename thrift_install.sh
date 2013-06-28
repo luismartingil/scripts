@@ -6,7 +6,7 @@
 #
 # Centos/Debian installation script
 
-NAME=thrift-0.7.0.tar.gz
+NAME=thrift-0.7.0
 WEB=http://apache.mirrorcatalogs.com/thrift/0.7.0/$NAME.tar.gz
 
 # Bash functions to install dependencies.
