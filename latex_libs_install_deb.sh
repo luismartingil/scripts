@@ -43,11 +43,11 @@ install_debian_req
 for i in "${ARRAY[@]}"
 do
     wget -c $WEB$i -O $i
-    mv $i /usr/share/texmf-texlive/tex/latex/
+    sudo mv $i /usr/share/texmf-texlive/tex/latex/
 done
 
 # Updating tex libs
-texhash
+sudo texhash
 
 # Getting a template
 echo "Getting a template to help you to take off"
