@@ -50,23 +50,22 @@ done
 texhash
 
 # Getting a template
+echo "Getting a template to help you to take off"
 mkdir $TEMPLATE
 cd $TEMPLATE
 # Lets grab the template files
 for i in "${ARRAY_TEMPLATE[@]}"
 do
-    wget -c $WEB$i -O $i
+    wget -c $WEB$TEMPLATE$i -O $i
 done
-
 # Getting the logos within the template
 mkdir $LOGO
 cd $LOGO
 # Lets grab the logo files
 for i in "${ARRAY_LOGO[@]}"
 do
-    wget -c $WEB$TEMPLATE$i -O $i
+    wget -c $WEB$TEMPLATE$LOGO$i -O $i
 done
-
 # Dirty way to go back.
 cd .. ; cd ..
 
