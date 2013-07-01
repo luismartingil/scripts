@@ -12,6 +12,21 @@ ARRAY=(
     minted.sty
     )
 
+TEMPLATE=template/
+ARRAY_TEMPLATE=(
+    Makefile
+    main.tex
+    section1.tex
+    section2.tex
+)
+LOGO=logos/
+ARRAY_LOGO=(
+    company-logo-watermark.png
+    company-logo.png
+)
+
+
+
 # Bash functions to install dependencies.
 # Probably more deps than needed!
 install_debian_req () {
@@ -34,4 +49,25 @@ done
 # Updating tex libs
 texhash
 
-echo 'LaTeX is installed!'
+# Getting a template
+mkdir $TEMPLATE
+cd $TEMPLATE
+# Lets grab the template files
+for i in "${ARRAY_TEMPLATE[@]}"
+do
+    wget -c $WEB$i -O $i
+done
+
+# Getting the logos within the template
+mkdir $LOGO
+cd $LOGO
+# Lets grab the logo files
+for i in "${ARRAY_LOGO[@]}"
+do
+    wget -c $WEB$TEMPLATE$i -O $i
+done
+
+# Dirty way to go back.
+cd .. ; cd ..
+
+echo 'LaTeX is installed! You can find an example here:' $TEMPLATE
