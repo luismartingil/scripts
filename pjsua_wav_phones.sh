@@ -15,7 +15,7 @@ IP_ADDR=192.168.191.16
 STUN_SRV=192.168.191.15
 TMUX_SRV=main
 
-# The array of <url, desc, port, i>
+# The array of 'url desc port i'
 # <url> url to download the wav from
 # <desc> description of the recording/ua
 # <port> port to bind the UA
