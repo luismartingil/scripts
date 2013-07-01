@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Bash script to install LaTeX.
+# Bash script to install LaTeX and the .sty that I use most.
 # Author: luismartingil
 # Year: 2012
 #
