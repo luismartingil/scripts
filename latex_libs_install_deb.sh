@@ -28,7 +28,7 @@ install_debian_req
 for i in "${ARRAY[@]}"
 do
     wget -c $WEB$i -O $i
-    cp $i /usr/share/texmf-texlive/tex/latex/
+    mv $i /usr/share/texmf-texlive/tex/latex/
 done
 
 # Updating tex libs
