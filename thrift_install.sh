@@ -4,7 +4,7 @@
 # Author: luismartingil
 # Year: 2012
 #
-# Centos/Debian installation script
+# Generic installation script
 
 NAME=thrift-0.7.0
 WEB=http://apache.mirrorcatalogs.com/thrift/0.7.0/$NAME.tar.gz
