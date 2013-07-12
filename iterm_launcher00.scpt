@@ -1,5 +1,6 @@
 -- luismartingil 2013
 -- Applescript to launch an specific terminal configuration
+-- Run from terminal with `osascript`
 
 launch "iTerm"
 
