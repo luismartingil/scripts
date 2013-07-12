@@ -1,6 +1,8 @@
+#!/usr/bin/osascript
 -- luismartingil 2013
 -- Applescript to launch an specific terminal configuration
--- Run from terminal with `osascript`
+-- Run from terminal with `osascript` or just ./<<script>>
+-- Dont unfocus with the mouse/keyboard while executing. the script.
 
 launch "iTerm"
 
