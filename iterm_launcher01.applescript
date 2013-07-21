@@ -5,6 +5,13 @@
 -- Dont unfocus with the mouse/keyboard while executing. the script.
 
 
+--
+--
+-- Update. Check iterm_launcher02.applescript for a clean and DRY way of doing this.
+--
+--
+
+
 tell application "iTerm"
 	
 	set colorList to {"blue", "red", "yellow", "green", "blue"} as list

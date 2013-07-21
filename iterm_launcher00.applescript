@@ -4,6 +4,12 @@
 -- Run from terminal with `osascript` or just ./<<script>>
 -- Dont unfocus with the mouse/keyboard while executing. the script.
 
+--
+--
+-- Update. Check iterm_launcher02.applescript for a clean and DRY way of doing this.
+--
+--
+
 launch "iTerm"
 
 tell application "iTerm"
