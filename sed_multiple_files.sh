@@ -53,6 +53,8 @@ do
     elif [ "$n" -eq "1" ]
     then 
 	dst=$(echo "$item" | sed 's/\//\\\//g')
+	# TODO. src and dst are obviously
+	# sharing some code. DRY!
     else 
     # File for the sed command
 	f=$item
