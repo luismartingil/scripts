@@ -10,8 +10,9 @@
 #
 
 # Some IPs for the pjsua
-BOUND_ADDR=192.168.191.16
-IP_ADDR=192.168.191.16
+IP=`/sbin/ifconfig eth1 | grep 'inet addr:' | cut -d: -f2| cut -d' ' -f1`
+BOUND_ADDR=$IP
+IP_ADDR=$IP
 STUN_SRV=192.168.191.15
 TMUX_SRV=main
 
