@@ -37,10 +37,12 @@ else
     VER=$(uname -r)
 fi
 
+# Some output information
+echo $OS
+echo $VER
+
 # Checking OS
 case $OS in
-    echo $OS
-    echo $VER
     *buntu*|*ebian*)
     echo 'OS Supported'
     install_debian_req
