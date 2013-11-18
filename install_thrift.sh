@@ -65,7 +65,7 @@ cd /usr/local/src/$NAME.tar.gz ; sudo chmod uog+x configure
 cd /usr/local/src/$NAME.tar.gz ; sudo ./configure --without-csharp --without-java --without-erlang --without-perl --without-php --without-php_extension --without-ruby --without-haskell --with-python --with-cpp --with-c_glib
 
 # Lets go!
-cd /usr/local/src/$NAME.tar.gz ; sudo make
-cd /usr/local/src/$NAME.tar.gz ; sudo make install
+cd /usr/local/src/$NAME ; sudo make
+cd /usr/local/src/$NAME ; sudo make install
 
 echo 'thrift is installed in /usr/local/lib, make sure it exists'
