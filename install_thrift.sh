@@ -69,3 +69,6 @@ cd /usr/local/src/$NAME ; sudo make
 cd /usr/local/src/$NAME ; sudo make install
 
 echo 'thrift is installed in /usr/local/lib, make sure it exists'
+echo '~~~~~~~~~~~~~~~~~~~~~~'
+echo 'ls -lrt /usr/local/lib'
+ls -lrt /usr/local/lib
