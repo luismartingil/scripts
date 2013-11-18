@@ -6,8 +6,9 @@
 #
 # Generic installation script
 
-NAME=thrift-0.7.0
-WEB=http://apache.mirrorcatalogs.com/thrift/0.7.0/$NAME.tar.gz
+VER_TH=0.7.0
+NAME=thrift-$VER_TH
+WEB=http://apache.mirrorcatalogs.com/thrift/$VER_TH/$NAME.tar.gz
 
 # Bash functions to install dependencies.
 # Probably more deps than needed!
