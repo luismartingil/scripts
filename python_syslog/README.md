@@ -1,0 +1,1 @@
+Implements a new handler for the logging module which uses the pure syslog python module.

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+      <!-- include AutobahnJS .. that's all you need -->
+      <script src="http://autobahn.s3.amazonaws.com/js/autobahn.min.js"></script>
+
+      <script>
+         // WAMP session object
+         var sess;
+
+         window.onload = function() {
+
+            // connect to WAMP server
+            ab.connect("ws://10.22.22.110:9000",
+
+               // WAMP session was established
+               function (session) {
+
+                  sess = session;
+                  console.log("Connected!");
+
+                  // sess.prefix("event", "http://test/event/");
+                  sess.subscribe("http://test/all/msp", onEvent_msp_switch);
+                  sess.subscribe("http://test/all/bi", onEvent_bi_switch);
+
+               },
+
+               // WAMP session is gone
+               function (code, reason) {
+                  sess = null;
+                  console.log(reason);
+                  // alert(reason);
+               }
+            );
+         };
+
+         function onEvent_msp_switch(topicUri, event) {
+            console.log(topicUri);
+            console.log(event);
+      sess.unsubscribe("http://test/all/msp");
+	    sess.subscribe("http://test/diff/msp", onEvent);
+         }
+
+         function onEvent_bi_switch(topicUri, event) {
+            console.log(topicUri);
+            console.log(event);
+	    sess.unsubscribe("http://test/all/bi");
+	    sess.subscribe("http://test/diff/bi", onEvent);
+         }
+
+         function onEvent(topicUri, event) {
+            console.log(topicUri);
+            console.log(event);
+         }
+
+         function logerror(erroruri, errordesc) {
+            console.log(erroruri + ' ("' + errordesc + '")');
+         }
+
+     </script>
+   </head>
+   <body>
+      <h1>AutobahnJS PubSub Client - PubSub with Authorization</h1>
+   </body>
+ </html>
