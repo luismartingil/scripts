@@ -70,6 +70,6 @@ cd /usr/local/src/$NAME ; sudo make install
 
 echo 'thrift is installed in /usr/local/lib, make sure it exists'
 echo '~~~~~~~~~~~~~~~~~~~~~~'
-LS_CMD=ls -lrt /usr/local/lib
+LS_CMD='ls -lrt /usr/local/lib'
 echo $LS_CMD
 $LS_CMD
