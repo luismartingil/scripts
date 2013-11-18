@@ -61,8 +61,8 @@ cd; wget $WEB
 cd; sudo tar -zxvf $NAME.tar.gz -C /usr/local/src
 
 # Compiling and installing the lib
-cd /usr/local/src/$NAME.tar.gz ; sudo chmod uog+x configure
-cd /usr/local/src/$NAME.tar.gz ; sudo ./configure --without-csharp --without-java --without-erlang --without-perl --without-php --without-php_extension --without-ruby --without-haskell --with-python --with-cpp --with-c_glib
+cd /usr/local/src/$NAME ; sudo chmod uog+x configure
+cd /usr/local/src/$NAME ; sudo ./configure --without-csharp --without-java --without-erlang --without-perl --without-php --without-php_extension --without-ruby --without-haskell --with-python --with-cpp --with-c_glib
 
 # Lets go!
 cd /usr/local/src/$NAME ; sudo make
