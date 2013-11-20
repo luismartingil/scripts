@@ -13,8 +13,10 @@ WEB=http://apache.mirrorcatalogs.com/thrift/$VER_TH/$NAME.tar.gz
 # Bash functions to install dependencies.
 # Probably more deps than needed!
 install_centos_req () {
+    sudo yum install -y automake libtool flex bison pkgconfig gcc-c++ boost-devel
     sudo yum install -y glib glib2 glib2-devel glibc glibc-devel glibc-common
     sudo yum groupinstall -y 'Development Tools'
+    #sudo yum install automake libtool flex bison pkgconfig gcc-c++ boost-devel libevent-devel zlib-devel python-devel ruby-devel openssl-devel
     #sudo yum install -y boost libevent libevent-devel automake.noarch libtool flex bison ustr-devel libgudev1-devel ustr-devel pm-utils-devel libgudev1-devel openssl-devel openssl-static ruby-static ruby-devel ruby-libs ruby perl-Carp-Clan rubygem-rake python-devel gstreamer-python-devel dbus-python-devel python-twisted perl-core php php-cli glib2 glib malaga automake bison bison-devel gfs2-utils doxygen glib2 automake libtool flex bison pkgconfig gcc-c++ boost-devel libevent-devel zlib-devel ruby-devel
 }
 install_debian_req () {
@@ -82,6 +84,10 @@ cd /usr/local/src/$NAME ; sudo ./configure --without-csharp --without-java --wit
 # Lets go!
 cd /usr/local/src/$NAME ; sudo make
 cd /usr/local/src/$NAME ; sudo make install
+
+# ldconfig creates the necessary links and cache to the most recent shared 
+# libraries found in the directories specified on the command line
+sudo ldconfig
 
 echo 'thrift is installed in /usr/local/lib, make sure it exists'
 echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
