@@ -10,6 +10,9 @@ VER_TH=0.7.0
 NAME=thrift-$VER_TH
 WEB=http://apache.mirrorcatalogs.com/thrift/$VER_TH/$NAME.tar.gz
 
+SRC=/usr/local/src/ # Placing thrift sources
+LIB_DST=/usr/lib/ # Library dest folder.
+
 # Bash functions to install dependencies.
 # Probably more deps than needed!
 install_centos_req () {
@@ -69,29 +72,30 @@ if [ ! -f $NAME.tar.gz ]; then
     cd; wget $WEB
 else
     echo 'Cleaning old installation'
-    cd /usr/local/src/$NAME ; sudo make uninstall
-    cd /usr/local/src/$NAME ; sudo make clean
+    cd $SRC$NAME ; sudo make uninstall
+    cd $SRC$NAME ; sudo make clean
     echo 'Removing old thrift files'
-    sudo rm -frv /usr/local/src/$NAME
+    sudo rm -frv $SRC$NAME
 fi
 
 cd; sudo tar -zxvf $NAME.tar.gz -C /usr/local/src
 
 # Compiling and installing the lib
-cd /usr/local/src/$NAME ; sudo chmod uog+x configure
-cd /usr/local/src/$NAME ; sudo ./configure --without-csharp --without-java --without-erlang --without-perl --without-php --without-php_extension --without-ruby --without-haskell --without-python --with-cpp --with-c_glib --with-c_glib=yes
+cd $SRC$NAME ; sudo chmod uog+x configure
+cd $SRC$NAME ; sudo ./configure --without-csharp --without-java --without-erlang --without-perl --without-php --without-php_extension --without-ruby --without-haskell --without-python --with-cpp --with-c_glib --libdir=$LIB_DST
 
 # Lets go!
-cd /usr/local/src/$NAME ; sudo make
-cd /usr/local/src/$NAME ; sudo make install
+cd $SRC$NAME ; sudo make
+cd $SRC$NAME ; sudo make install
 
 # ldconfig creates the necessary links and cache to the most recent shared 
 # libraries found in the directories specified on the command line
 sudo ldconfig
 
-echo 'thrift is installed in /usr/local/lib, make sure it exists'
-echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-LS_CMD='ls -lrt /usr/local/lib'
+echo '~~~~~~~~~~~~~~~~~~~~~~'
+
+echo 'thrift is installed in '$LIB_DST
+LS_CMD='ls -lrt '$LIB_DST
 echo 'Executing: '$LS_CMD
 $LS_CMD
 
