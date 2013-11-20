@@ -95,7 +95,7 @@ sudo ldconfig
 echo '~~~~~~~~~~~~~~~~~~~~~~'
 
 echo 'thrift is installed in '$LIB_DST
-LS_CMD='ls -lrt '$LIB_DST
+LS_CMD='ls -lrt '$LIB_DST' | grep thrift'
 echo 'Executing: '$LS_CMD
 $LS_CMD
 
