@@ -58,8 +58,20 @@ case $OS in
 	;;
 esac
 
+# Assuming the home folder as the working directory
+cd;
+
 # Getting the lib
-cd; wget $WEB
+if [ ! -f $NAME.tar.gz ]; then
+    cd; wget $WEB
+else
+    echo 'Cleaning old installation'
+    cd /usr/local/src/$NAME ; sudo make uninstall
+    cd /usr/local/src/$NAME ; sudo make clean
+    echo 'Removing old thrift files'
+    sudo rm -frv /usr/local/src/$NAME
+fi
+
 cd; sudo tar -zxvf $NAME.tar.gz -C /usr/local/src
 
 # Compiling and installing the lib
