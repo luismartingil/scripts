@@ -91,7 +91,6 @@ cd $SRC$NAME ; sudo make install
 sudo ldconfig
 
 echo '~~~~~~~~~~~~~~~~~~~~~~'
-
 echo 'ldns is installed in '$LIB_DST
 LS_CMD='ls -lrt '$LIB_DST' | grep ldns'
 echo 'Executing: '$LS_CMD
