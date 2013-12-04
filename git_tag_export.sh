@@ -6,8 +6,8 @@
 # Author: luismartingil
 # Year: 2013
 
-# $1 Ftp, "projects.indigitaldev.net"
-# $2 Folder in the ftp, "/realtime"
+# $1 Ftp, Example: "projects.indigitaldev.net"
+# $2 Folder in the ftp, Example: "/realtime"
 
 FTP_USERNAME="anonymous"
 FTP_PASSWORD="anonymous@anonymous.com"
@@ -41,7 +41,6 @@ for f in $TARS ;
 do
     echo 'Uploading "$f" to "$FTP_SERVER"';
     ftp -n -i $FTP_SERVER<<EOF
-EOF
     user $FTP_USERNAME $FTP_PASSWORD
     binary
     cd $FTP_DIR
