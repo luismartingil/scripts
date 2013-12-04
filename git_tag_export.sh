@@ -36,7 +36,7 @@ else
    echo ''
    for f in $TARS ;
    do
-       echo '+ Will upload '$f
+       echo '+ Will upload "'$f'" to "'$FTP_SERVER':'$FTP_DIR'"';
    done
    
    sleep 1.5
@@ -44,7 +44,7 @@ else
    # Uploading the files
    for f in $TARS ;
    do
-       echo 'Uploading "$f" to "$FTP_SERVER"';
+       echo 'Uploading "'$f'" to "'$FTP_SERVER'"';
        ftp -n -i $FTP_SERVER<<EOF
     user $FTP_USERNAME $FTP_PASSWORD
     binary
