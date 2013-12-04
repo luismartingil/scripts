@@ -52,5 +52,7 @@ else
     mput $f
     quit
 EOF
+       echo "Removing "$f
+       rm -frv $f
    done
 fi
