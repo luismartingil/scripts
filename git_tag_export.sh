@@ -6,10 +6,13 @@
 # Author: luismartingil
 # Year: 2013
 
+# $1 Ftp, "projects.indigitaldev.net"
+# $2 Folder in the ftp, "/realtime"
+
 FTP_USERNAME="anonymous"
 FTP_PASSWORD="anonymous@anonymous.com"
-FTP_SERVER="projects.indigitaldev.net"
-FTP_DIR="/realtime" # Folder where files are going to be stored
+FTP_SERVER=$1
+FTP_DIR=$2 # Folder where files are going to be stored
 
 project=$(basename `git rev-parse --show-toplevel`)
 
