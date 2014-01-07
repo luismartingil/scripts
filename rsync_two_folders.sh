@@ -9,3 +9,4 @@
 # $2. myserver_root:mypath
 
 rsync -avh $1 $2
+#sudo rsync -a --progress /Volumes/_MY_VOLUME_ /Volumes/luismartingil_backups
