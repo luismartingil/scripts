@@ -28,7 +28,10 @@ class SysLogLibHandler(logging.Handler):
             try:
                 syslog.openlog(syslog.LOG_PID, self.FACILITY[n])
             except Exception, err:
-                raise
+                try:
+                    syslog.openlog('my_ident', syslog.LOG_PID, self.FACILITY[n])
+                except:
+                    raise
         # We got it
         logging.Handler.__init__(self)
 
