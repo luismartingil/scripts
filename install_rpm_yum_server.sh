@@ -128,7 +128,7 @@ eval $CREATE_REPO_CMD
 
 # Installing that command into crontab
 # (Every minute recreate the repo. It would be
-# better to look for file changes...)
+# better to look for file changes using inotifywait)
 CRON_LINE="*/1 * * * * "$CREATE_REPO_CMD # Little dirty
 echo "$CRON_LINE"
 crontab -l > mycron
