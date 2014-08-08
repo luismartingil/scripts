@@ -119,6 +119,7 @@ sudo mv $TMP_FILE $PROFTPD_CONFIG
 sudo killall proftpd
 sudo /usr/local/sbin/proftpd
 sudo service iptables stop # Little dirty
+sudo chkconfig iptables off
 
 # Create the RPM repo which will be
 # served by the FTP server installed.
