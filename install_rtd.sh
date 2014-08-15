@@ -36,7 +36,7 @@ install_req () {
     [ `ls -lart /etc/yum.repos.d/ | grep epel | wc -l` -gt 0 ] && echo 'epel repo already installed' || install_epel
     # Getting dependencies
     sudo yum groupinstall -y "Development tools"
-    sudo yum install -y python-devel libxml2 libxslt libxml2-devel libxslt-devel libyaml-devel lxml python-lxml libdbi-dbd-sqlite zlib-devel xz-devel zlib-dev ncurses-devel bzip2-devel openssl-devel libpcap-devel readline-devel python-sqlite2 tk-devel gdbm-devel db4-devel sqlite-devel
+    sudo yum install -y pdfjam python-devel libxml2 libxslt libxml2-devel libxslt-devel libyaml-devel lxml python-lxml libdbi-dbd-sqlite zlib-devel xz-devel zlib-dev ncurses-devel bzip2-devel openssl-devel libpcap-devel readline-devel python-sqlite2 tk-devel gdbm-devel db4-devel sqlite-devel
     # Installing pip
     hash pip 2>/dev/null && echo 'pip already installed' || install_pip
     echo 'Done installing dependencies'
@@ -75,6 +75,7 @@ install_rtd () {
     cd readthedocs.org
     echo 'Installing rtd reqs'
     pip install -r pip_requirements.txt
+    pip install sphinx_bootstrap_theme
     echo 'Done installing rtd reqs'
     RTD_DIR=$ENV_DIR/checkouts/readthedocs.org
     cd $RTD_DIR
