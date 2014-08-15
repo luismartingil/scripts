@@ -88,6 +88,7 @@ install_rtd () {
 
 # No iptables, please
 sudo service iptables stop
+sudo chkconfig iptables off
 
 # Installing requirements
 install_req
