@@ -76,6 +76,8 @@ install_rtd () {
     echo 'Installing rtd reqs'
     pip install -r pip_requirements.txt
     pip install sphinx_bootstrap_theme
+    pip install --upgrade sphinx
+    pip install --upgrade pygments
     echo 'Done installing rtd reqs'
     RTD_DIR=$ENV_DIR/checkouts/readthedocs.org
     cd $RTD_DIR
