@@ -24,6 +24,8 @@
 # Website: www.luismartingil.com
 # Year: 2014
 #
+# Credits: http://pfigue.github.io/blog/2013/03/23/read-the-docs-served-standalone-with-gunicorn/
+#
 
 # Actual folder
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -53,20 +55,23 @@ install_configure_nginx () {
     sudo mkdir /etc/nginx/site-enabled
     TMP_FILE=`mktemp`
     cat > $TMP_FILE <<EOF
-    server {
-	listen 80;
-	server_name read-the-docs.localhost;
-	access_log  /var/log/nginx/read-the-docs.localhost.log;
-	
-	location / {
-            uwsgi_pass 127.0.0.1:8001;
-            include uwsgi_params;
-	}
+server {
+    listen 80;
+    server_name read-the-docs.localhost;
+    access_log  /var/log/nginx/read-the-docs.localhost-access.log;
+    error_log   /var/log/nginx/read-the-docs.localhost-error.log;
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
+}
 EOF
-    sudo mv $TMP_FILE /etc/nginx/site-enabled/read-the-docs.localhost
+    sudo mv $TMP_FILE /etc/nginx/site-enabled/read-the-docs.localhost.conf
     sudo sed -i 's,include,#include,g' /etc/nginx/nginx.conf
-    sudo sed -i '/http {/a include /etc/nginx/site-enabled/*;' /etc/nginx/nginx.conf
+    sudo sed -i '/http {/a include /etc/nginx/site-enabled/*.conf;' /etc/nginx/nginx.conf
     sudo /etc/init.d/nginx configtest
     sudo /etc/init.d/nginx stop
     sudo /etc/init.d/nginx start
