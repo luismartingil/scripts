@@ -152,12 +152,12 @@ install_rtd_core () {
     echo 'Done installing rtd reqs'
     cd $RTD_DIR
     echo 'manage.py syncdb...'
-    #$ENV_PYTHON_BIN manage.py syncdb --noinput
+    $ENV_PYTHON_BIN manage.py syncdb --noinput
     echo 'manage.py migrate...'
-    #$ENV_PYTHON_BIN manage.py migrate
+    $ENV_PYTHON_BIN manage.py migrate
     echo 'manage.py test...'
-    #$ENV_PYTHON_BIN manage.py test
-    echo 'manage.py loaddata test_data...'
+    $ENV_PYTHON_BIN manage.py test
+    #echo 'manage.py loaddata test_data...'
     #$ENV_PYTHON_BIN manage.py loaddata test_data
     install_configure_nginx
     echo 'Configuring /etc/hosts with rtd'
