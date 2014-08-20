@@ -94,6 +94,7 @@ EOF
     sudo /etc/init.d/nginx configtest
     sudo /etc/init.d/nginx stop
     sudo /etc/init.d/nginx start
+    sudo chkconfig nginx on
     echo 'nginx configured for rtd'
 }
 
