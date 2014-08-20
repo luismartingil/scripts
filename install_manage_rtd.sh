@@ -218,6 +218,8 @@ case $1 in
 	;;
 esac
 END=`date +%s%N`
-ELAPSED=`echo "scale=8; ($END - $START) / 1000000000" | bc`
-echo 'Elapsed time:'$ELAPSED
+ELAPSED=($END - $START)
+echo 'Start time: '$START
+echo 'End time: '$END
+echo 'Elapsed time: '$ELAPSED
 # =================================================
