@@ -11,6 +11,8 @@
 # - Installs python2.7
 # - Installs readthedocs (rtd)
 # - Installs gunicorn/nginx
+# - Modifies /etc/hosts
+#
 #
 # Author: luismartingil
 # Year: 2014
@@ -40,7 +42,9 @@ install_configure_nginx () {
     sudo yum install -y nginx
     echo 'nginx installed'
     echo 'Configuring nginx adding readthedocs server'
-    cat > /etc/nginx/site-enabled/read-the-docs.localhost <<EOF
+    sudo mkdir /etc/nginx/site-enabled
+    TMP_FILE=`mktemp`
+    cat > $TMP_FILE <<EOF
     server {
 	listen 80;
 	server_name read-the-docs.localhost;
@@ -52,8 +56,9 @@ install_configure_nginx () {
 	}
     }
 EOF
+    sudo $TMP_FILE /etc/nginx/site-enabled/read-the-docs.localhost
     sudo sed -i 's,include,#include,g' /etc/nginx/nginx.conf
-    sudo sed -i '/keepalive_timeout/a include /etc/nginx/site-enabled/*;' /etc/nginx/nginx.conf
+    sudo sed -i '/http {/a include /etc/nginx/site-enabled/*;' /etc/nginx/nginx.conf
     sudo /etc/init.d/nginx testconfig
     sudo /etc/init.d/nginx reload
     echo 'nginx configured for rtd'
