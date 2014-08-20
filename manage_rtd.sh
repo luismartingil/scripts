@@ -3,6 +3,8 @@
 # Installation script for a readthedocs instance
 # in a plain CENTOS box. readthedocs.org
 #
+# 
+#
 # Author: luismartingil
 # Year: 2014
 #
@@ -12,6 +14,15 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ENV=rtd
 ENV_DIR=$DIR/$ENV
+ENV_PYTHON_BIN=$ENV_DIR/bin/python
+RTD_DIR=$ENV_DIR/checkouts/readthedocs.org
+RTD_IN_DIR=$RTD_DIR/readthedocs/
+
+qquit () {
+    echo "Usage: $0 <action>"
+    echo "<action> {install|run}"
+    exit 1
+}
 
 install_pip() {
     echo 'Installing pip'
@@ -61,13 +72,12 @@ install_python27 () {
     hash python2.7 2>/dev/null && echo 'python2.7 already installed' || install_python27_aux
 }
 
-install_rtd () {
+install_rtd_core () {
     echo 'Installing rtd'
     echo 'Removing previous installation'
     sudo rm -fr $ENV_DIR
     sudo pip install virtualenv    
     cd ; virtualenv -p python2.7 $ENV_DIR
-    ENV_PYTHON_BIN=$ENV_DIR/bin/python
     cd $ENV ; source bin/activate
     pip install --upgrade pip
     mkdir checkouts ; cd checkouts
@@ -75,28 +85,53 @@ install_rtd () {
     cd readthedocs.org
     echo 'Installing rtd reqs'
     pip install -r pip_requirements.txt
-    pip install sphinx_bootstrap_theme
-    pip install --upgrade sphinx
-    pip install --upgrade pygments
+    pip install sphinx_bootstrap_theme --upgrade
+    pip install sphinx --upgrade
+    pip install pygments --upgrade
+    pip install gunicorn --upgrade
+    pip install django-redis-cache --upgrade
     echo 'Done installing rtd reqs'
-    RTD_DIR=$ENV_DIR/checkouts/readthedocs.org
     cd $RTD_DIR
     $ENV_PYTHON_BIN manage.py syncdb
     $ENV_PYTHON_BIN manage.py migrate
     echo 'Done installing rtd'
-    echo 'Running rtd server'
-    $ENV_PYTHON_BIN manage.py runserver 0.0.0.0:8000    
 }
 
-# No iptables, please
-sudo service iptables stop
-sudo chkconfig iptables off
+# -------------------------------------------------
+do_install () {
+    # No iptables, please
+    sudo service iptables stop
+    sudo chkconfig iptables off    
+    # Installing requirements
+    install_req    
+    # Installing python2.7 if needed
+    install_python27
+    # Installing rtd from Python sources
+    install_rtd_core
+}
+# -------------------------------------------------
 
-# Installing requirements
-install_req
+# -------------------------------------------------
+do_run () {
+    cd $ENV ; source bin/activate
+    cd $RTD_DIR
+    export PYTHONPATH=$RTD_DIR':'$RTD_IN_DIR
+    echo 'PYTHONPATH:'$PYTHONPATH
+    export DJANGO_SETTINGS_MODULE='readthedocs.settings.sqlite'
+    echo 'Running rtd server'
+    $ENV_PYTHON_BIN manage.py runserver 0.0.0.0:8000
+    echo 'Done installing rtd'
+}
+# -------------------------------------------------
 
-# Installing python2.7 if needed
-install_python27
-
-# Installing rtd from Python sources
-install_rtd
+case $1 in
+    install)
+	do_install
+	;;
+    run)
+	do_run
+	;;
+    *)
+    qquit
+    ;;
+esac
