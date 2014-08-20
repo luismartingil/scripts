@@ -147,15 +147,15 @@ install_rtd_core () {
     pip install django-redis-cache --upgrade
     echo 'Done installing rtd reqs'
     cd $RTD_DIR
-    # Lets add a wait 
+    # Lets add a pause until the users agrees to continue
     while true
     do
 	read -p "Continue to manage rtd? (type yes)... " answer
 	case $answer in
-	    [yY]* ) 
+	    [yY]* )
 		echo "Ok."
 		break;;
-	    * )     
+	    * )
 		echo "Dude, just enter Y or N, please.";;
 	esac
     done
