@@ -50,7 +50,7 @@ activate_python_virtualenv () {
 
 rtd_manage () {
     cd $RTD_DIR
-    echo 'Manually run:'
+    echo 'Jump into the virtual env (source bin/activate) and cd '$RTD_DIR' ...Manually run:'
     echo 'manage.py syncdb...'
     echo $ENV_PYTHON_BIN' manage.py syncdb'
     #echo $ENV_PYTHON_BIN' manage.py syncdb --noinput'
@@ -203,7 +203,7 @@ do_run_gunicorn () {
     echo 'Running rtd server with gunicorn!'
     export PYTHONPATH=$RTD_DIR':'$RTD_IN_DIR
     export DJANGO_SETTINGS_MODULE='readthedocs.settings.sqlite'
-    gunicorn readthedocs.wsgi:application --debug -w 100
+    gunicorn readthedocs.wsgi:application --debug -w 10
 }
 # -------------------------------------------------
 
