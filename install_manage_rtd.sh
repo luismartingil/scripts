@@ -150,13 +150,14 @@ install_rtd_core () {
     # Lets add a pause until the users agrees to continue
     while true
     do
-	read -p "Continue to manage rtd? (type yes)... " answer
-	case $answer in
-	    [yY]* )
-		echo "Ok."
+	read -p "Continue to manage rtd? (type Yes)..." input </dev/tty
+	case $input in
+	    [Yes]* )
+		echo "Great, continue."
 		break;;
 	    * )
-		echo "Dude, just enter Y or N, please.";;
+		echo "Enter Yes, please."
+		;;
 	esac
     done
     $ENV_PYTHON_BIN manage.py syncdb
