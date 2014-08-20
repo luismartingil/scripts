@@ -56,7 +56,7 @@ install_configure_nginx () {
     server {
 	listen 80;
 	server_name read-the-docs.localhost;
-	access_log  /opt/readthedocs.org/logs/read-the-docs.localhost.log;
+	access_log  /var/log/nginx/read-the-docs.localhost.log;
 	
 	location / {
             uwsgi_pass 127.0.0.1:8001;
@@ -64,11 +64,12 @@ install_configure_nginx () {
 	}
     }
 EOF
-    sudo $TMP_FILE /etc/nginx/site-enabled/read-the-docs.localhost
+    sudo mv $TMP_FILE /etc/nginx/site-enabled/read-the-docs.localhost
     sudo sed -i 's,include,#include,g' /etc/nginx/nginx.conf
     sudo sed -i '/http {/a include /etc/nginx/site-enabled/*;' /etc/nginx/nginx.conf
-    sudo /etc/init.d/nginx testconfig
-    sudo /etc/init.d/nginx reload
+    sudo /etc/init.d/nginx configtest
+    sudo /etc/init.d/nginx stop
+    sudo /etc/init.d/nginx start
     echo 'nginx configured for rtd'
 }
 
@@ -177,7 +178,7 @@ do_run_gunicorn () {
     activate_python_virtualenv
     cd $RTD_DIR
     echo 'Running rtd server with gunicorn!'
-    export PYTHONPATH="'"$RTD_DIR':'$RTD_IN_DIR"'"
+    export PYTHONPATH=$RTD_DIR':'$RTD_IN_DIR
     export DJANGO_SETTINGS_MODULE='readthedocs.settings.sqlite'
     gunicorn readthedocs.wsgi:application --debug -w 100
 }
@@ -185,6 +186,7 @@ do_run_gunicorn () {
 
 # =================================================
 # Main
+START=`date +%s%N`
 case $1 in
     install)
 	do_install
@@ -199,4 +201,7 @@ case $1 in
 	qquit
 	;;
 esac
+END=`date +%s%N`
+ELAPSED=`echo "scale=8; ($END - $START) / 1000000000" | bc`
+echo 'Elapsed time:'$ELAPSED
 # =================================================
