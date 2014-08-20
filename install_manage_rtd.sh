@@ -147,8 +147,10 @@ install_rtd_core () {
     pip install django-redis-cache --upgrade
     echo 'Done installing rtd reqs'
     cd $RTD_DIR
+    read -p "Press [Enter] key to continue..."
     $ENV_PYTHON_BIN manage.py syncdb
     $ENV_PYTHON_BIN manage.py migrate
+    $ENV_PYTHON_BIN manage.py test
     install_configure_nginx
     echo 'Configuring /etc/hosts with rtd'
     [ `grep "read-the-docs" /etc/hosts | wc -l` -gt 0 ] && echo 'read-the-docs already in /etc/hosts' || sudo sh -c 'echo "127.0.0.1   read-the-docs.localhost" >> /etc/hosts'
