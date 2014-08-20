@@ -24,6 +24,34 @@ qquit () {
     exit 1
 }
 
+activate_python_virtualenv () {
+    cd $ENV ; source bin/activate
+}
+
+install_configure_nginx () {
+    echo 'Installing nginx'
+    sudo yum install -y nginx
+    echo 'nginx installed'
+    echo 'Configuring nginx adding readthedocs server'
+    cat > /etc/nginx/site-enabled/read-the-docs.localhost <<EOF
+    server {
+	listen 80;
+	server_name read-the-docs.localhost;
+	access_log  /opt/readthedocs.org/logs/read-the-docs.localhost.log;
+	
+	location / {
+            uwsgi_pass 127.0.0.1:8001;
+            include uwsgi_params;
+	}
+    }
+EOF
+    sudo sed -i 's,include,#include,g' /etc/nginx/nginx.conf
+    sudo sed -i '/keepalive_timeout/a include /etc/nginx/site-enabled/*;' /etc/nginx/nginx.conf
+    sudo /etc/init.d/nginx testconfig
+    sudo /etc/init.d/nginx reload
+    echo 'nginx configured for rtd'
+}
+
 install_pip() {
     echo 'Installing pip'
     curl https://raw.githubusercontent.com/pypa/pip/master/contrib/get-pip.py | sudo python -
@@ -78,7 +106,7 @@ install_rtd_core () {
     sudo rm -fr $ENV_DIR
     sudo pip install virtualenv    
     cd ; virtualenv -p python2.7 $ENV_DIR
-    cd $ENV ; source bin/activate
+    activate_python_virtualenv
     pip install --upgrade pip
     mkdir checkouts ; cd checkouts
     git clone https://github.com/rtfd/readthedocs.org.git
@@ -94,6 +122,9 @@ install_rtd_core () {
     cd $RTD_DIR
     $ENV_PYTHON_BIN manage.py syncdb
     $ENV_PYTHON_BIN manage.py migrate
+    install_configure_nginx
+    echo 'Configuring /etc/hosts with rtd'
+    [ `grep "read-the-docs" /etc/hosts | wc -l` -gt 0 ] && echo 'read-the-docs already in /etc/hosts' || sudo sh -c 'echo "127.0.0.1   read-the-docs.localhost" >> /etc/hosts'
     echo 'Done installing rtd'
 }
 
@@ -112,15 +143,22 @@ do_install () {
 # -------------------------------------------------
 
 # -------------------------------------------------
-do_run () {
-    cd $ENV ; source bin/activate
+do_run_dev () {
+    activate_python_virtualenv
     cd $RTD_DIR
-    export PYTHONPATH=$RTD_DIR':'$RTD_IN_DIR
-    echo 'PYTHONPATH:'$PYTHONPATH
-    export DJANGO_SETTINGS_MODULE='readthedocs.settings.sqlite'
-    echo 'Running rtd server'
+    echo 'Running rtd server!'
     $ENV_PYTHON_BIN manage.py runserver 0.0.0.0:8000
-    echo 'Done installing rtd'
+}
+# -------------------------------------------------
+
+# -------------------------------------------------
+do_run_gunicorn () {
+    activate_python_virtualenv
+    cd $RTD_DIR
+    echo 'Running rtd server with gunicorn!'
+    export PYTHONPATH="'"$RTD_DIR':'$RTD_IN_DIR"'"
+    export DJANGO_SETTINGS_MODULE='readthedocs.settings.sqlite'
+    gunicorn readthedocs.wsgi:application --debug -w 100
 }
 # -------------------------------------------------
 
@@ -128,8 +166,11 @@ case $1 in
     install)
 	do_install
 	;;
-    run)
-	do_run
+    run-dev)
+	do_run_dev
+	;;
+    run-gunicorn)
+	do_run_gunicorn
 	;;
     *)
     qquit
