@@ -147,7 +147,18 @@ install_rtd_core () {
     pip install django-redis-cache --upgrade
     echo 'Done installing rtd reqs'
     cd $RTD_DIR
-    read -p "Press [Enter] key to continue..."
+    # Lets add a wait 
+    while true
+    do
+	read -p "Continue to manage rtd? (type yes)... " answer
+	case $answer in
+	    [yY]* ) 
+		echo "Ok."
+		break;;
+	    * )     
+		echo "Dude, just enter Y or N, please.";;
+	esac
+    done
     $ENV_PYTHON_BIN manage.py syncdb
     $ENV_PYTHON_BIN manage.py migrate
     $ENV_PYTHON_BIN manage.py test
