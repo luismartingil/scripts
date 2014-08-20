@@ -1,9 +1,10 @@
 #!/bin/bash
 #
-# Installation script for a readthedocs instance
-# in a plain CENTOS box. readthedocs.org
+# Installation script for a readthedocs dev/prod server
+# starting from a plain and clean CENTOS box.
+# readthedocs.org (rtd)
 #
-# Actions
+# Script actions:
 # - Disables iptables
 # - Installs epel repo
 # - Installs dependencies
@@ -14,10 +15,14 @@
 # - Modifies /etc/hosts
 #
 #
+# Avg installation time in Centos 6.4 vagrant box with
+# 500MB RAM, 1 CPU @ 2.30GHz, 2GB hard-drive: 
+#     - 
+#
+#
 # Author: luismartingil
 # Website: www.luismartingil.com
 # Year: 2014
-#
 #
 
 # Actual folder
