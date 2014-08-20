@@ -160,8 +160,11 @@ install_rtd_core () {
 		;;
 	esac
     done
+    echo 'manage.py syncdb...'
     $ENV_PYTHON_BIN manage.py syncdb
+    echo 'manage.py migrate...'
     $ENV_PYTHON_BIN manage.py migrate
+    echo 'manage.py test...'
     $ENV_PYTHON_BIN manage.py test
     install_configure_nginx
     echo 'Configuring /etc/hosts with rtd'
