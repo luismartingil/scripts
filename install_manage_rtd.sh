@@ -27,7 +27,8 @@
 # Credits: http://pfigue.github.io/blog/2013/03/23/read-the-docs-served-standalone-with-gunicorn/
 #
 
-# Actual folder
+# Actual home folder
+cd ~
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Some other folder definitions
 ENV=rtd
@@ -150,25 +151,14 @@ install_rtd_core () {
     pip install django-redis-cache --upgrade
     echo 'Done installing rtd reqs'
     cd $RTD_DIR
-    # Lets add a pause until the users agrees to continue
-    while true
-    do
-	read -p "Continue to manage rtd? (type Yes)..." input </dev/tty
-	case $input in
-	    [Yes]* )
-		echo "Great, continue."
-		break;;
-	    * )
-		echo "Enter Yes, please."
-		;;
-	esac
-    done
     echo 'manage.py syncdb...'
-    $ENV_PYTHON_BIN manage.py syncdb
+    #$ENV_PYTHON_BIN manage.py syncdb --noinput
     echo 'manage.py migrate...'
-    $ENV_PYTHON_BIN manage.py migrate
+    #$ENV_PYTHON_BIN manage.py migrate
     echo 'manage.py test...'
-    $ENV_PYTHON_BIN manage.py test
+    #$ENV_PYTHON_BIN manage.py test
+    echo 'manage.py loaddata test_data...'
+    #$ENV_PYTHON_BIN manage.py loaddata test_data
     install_configure_nginx
     echo 'Configuring /etc/hosts with rtd'
     [ `grep "read-the-docs" /etc/hosts | wc -l` -gt 0 ] && echo 'read-the-docs already in /etc/hosts' || sudo sh -c 'echo "127.0.0.1   read-the-docs.localhost" >> /etc/hosts'
