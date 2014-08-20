@@ -48,6 +48,20 @@ activate_python_virtualenv () {
     cd $ENV ; source bin/activate
 }
 
+rtd_manage () {
+    cd $RTD_DIR
+    echo 'Manually run:'
+    echo 'manage.py syncdb...'
+    echo $ENV_PYTHON_BIN' manage.py syncdb'
+    #echo $ENV_PYTHON_BIN' manage.py syncdb --noinput'
+    echo 'manage.py migrate...'
+    echo $ENV_PYTHON_BIN' manage.py migrate'
+    echo 'manage.py test...'
+    echo $ENV_PYTHON_BIN' manage.py test'
+    #echo 'manage.py loaddata test_data...'
+    #$ENV_PYTHON_BIN manage.py loaddata test_data
+}
+
 install_configure_nginx () {
     echo 'Removing previous nginx installation, if any'
     sudo service nginx stop
@@ -150,18 +164,11 @@ install_rtd_core () {
     pip install gunicorn --upgrade
     pip install django-redis-cache --upgrade
     echo 'Done installing rtd reqs'
-    cd $RTD_DIR
-    echo 'manage.py syncdb...'
-    $ENV_PYTHON_BIN manage.py syncdb --noinput
-    echo 'manage.py migrate...'
-    $ENV_PYTHON_BIN manage.py migrate
-    echo 'manage.py test...'
-    $ENV_PYTHON_BIN manage.py test
-    #echo 'manage.py loaddata test_data...'
-    #$ENV_PYTHON_BIN manage.py loaddata test_data
     install_configure_nginx
     echo 'Configuring /etc/hosts with rtd'
     [ `grep "read-the-docs" /etc/hosts | wc -l` -gt 0 ] && echo 'read-the-docs already in /etc/hosts' || sudo sh -c 'echo "127.0.0.1   read-the-docs.localhost" >> /etc/hosts'
+    echo ' ------------------ '
+    rtd_manage
     echo 'Done installing rtd'
 }
 # =================================================
@@ -202,7 +209,7 @@ do_run_gunicorn () {
 
 # =================================================
 # Main
-START=`date +%s%N`
+T1=$(date +%s)
 case $1 in
     install)
 	do_install
@@ -217,9 +224,7 @@ case $1 in
 	qquit
 	;;
 esac
-END=`date +%s%N`
-ELAPSED=($END - $START)
-echo 'Start time: '$START
-echo 'End time: '$END
-echo 'Elapsed time: '$ELAPSED
+T2=$(date +%s)
+diffsec="$(expr $T2 - $T1)"
+echo | awk -v D=$diffsec '{printf "Elapsed time: %02d:%02d:%02d\n",D/(60*60),D%(60*60)/60,D%60}'
 # =================================================
