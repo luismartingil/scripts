@@ -48,6 +48,9 @@ activate_python_virtualenv () {
 }
 
 install_configure_nginx () {
+    echo 'Removing previous nginx installation, if any'
+    sudo service nginx stop
+    sudo yum remove -y nginx
     echo 'Installing nginx'
     sudo yum install -y nginx
     echo 'nginx installed'
