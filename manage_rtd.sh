@@ -3,7 +3,14 @@
 # Installation script for a readthedocs instance
 # in a plain CENTOS box. readthedocs.org
 #
-# 
+# Actions
+# - Disables iptables
+# - Installs epel repo
+# - Installs dependencies
+# - Installs python pip
+# - Installs python2.7
+# - Installs readthedocs (rtd)
+# - Installs gunicorn/nginx
 #
 # Author: luismartingil
 # Year: 2014
@@ -20,7 +27,7 @@ RTD_IN_DIR=$RTD_DIR/readthedocs/
 
 qquit () {
     echo "Usage: $0 <action>"
-    echo "<action> {install|run}"
+    echo "<action> {install|run-dev|run-gunicorn}"
     exit 1
 }
 
@@ -173,6 +180,6 @@ case $1 in
 	do_run_gunicorn
 	;;
     *)
-    qquit
-    ;;
+	qquit
+	;;
 esac
