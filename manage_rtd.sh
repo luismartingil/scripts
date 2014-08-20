@@ -15,18 +15,21 @@
 #
 #
 # Author: luismartingil
+# Website: www.luismartingil.com
 # Year: 2014
 #
 #
 
 # Actual folder
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# Some other folder definitions
 ENV=rtd
 ENV_DIR=$DIR/$ENV
 ENV_PYTHON_BIN=$ENV_DIR/bin/python
 RTD_DIR=$ENV_DIR/checkouts/readthedocs.org
 RTD_IN_DIR=$RTD_DIR/readthedocs/
 
+# =================================================
 qquit () {
     echo "Usage: $0 <action>"
     echo "<action> {install|run-dev|run-gunicorn}"
@@ -139,6 +142,7 @@ install_rtd_core () {
     [ `grep "read-the-docs" /etc/hosts | wc -l` -gt 0 ] && echo 'read-the-docs already in /etc/hosts' || sudo sh -c 'echo "127.0.0.1   read-the-docs.localhost" >> /etc/hosts'
     echo 'Done installing rtd'
 }
+# =================================================
 
 # -------------------------------------------------
 do_install () {
@@ -174,6 +178,8 @@ do_run_gunicorn () {
 }
 # -------------------------------------------------
 
+# =================================================
+# Main
 case $1 in
     install)
 	do_install
@@ -188,3 +194,4 @@ case $1 in
 	qquit
 	;;
 esac
+# =================================================
