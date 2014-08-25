@@ -74,12 +74,61 @@ install_configure_nginx () {
     TMP_FILE=`mktemp`
     # Note skipping $ symbols
     cat > $TMP_FILE <<EOF
+# -----------------------------
 server {
-    listen 80;
-    server_name read-the-docs.localhost;
-    access_log  /var/log/nginx/read-the-docs.localhost-access.log;
-    error_log   /var/log/nginx/read-the-docs.localhost-error.log;
 
+   # Matching project.docs.dev.net
+   listen 80;
+   server_name ~^(?<subdomain>.+)\.docs\.dev\.net\$;
+   access_log  /var/log/nginx/global-read-the-docs-access.log;
+   error_log   /var/log/nginx/global-read-the-docs-error.log;
+
+   # Avoid 304 problem
+   add_header Cache-Control public;
+   # add_header Cache-Control no-cache;
+   # if_modified_since off;
+   add_header Last-Modified "";
+   add_header ETag "";
+
+   # Forward all medio to gunicorn
+   location ~ ^/media/(.*) {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+   }
+   # If project.docs.dev.net/path, try to show master branch
+   location / {
+        alias /root/rtd/checkouts/readthedocs.org/user_builds/\$subdomain/rtd-builds/latest/;
+   }
+   # If project.docs.dev.net/en/branch/ or
+   #    project.docs.dev.net/en/branch go to branch
+   location ~ ^/en/(.+)(/?) {
+        alias /root/rtd/checkouts/readthedocs.org/user_builds/\$subdomain/rtd-builds/\$1;
+   }
+   # If project.docs.dev.net/en/branch/path go to branch/path
+   location ~ ^/en/(.+)/(.+) {
+        alias /root/rtd/checkouts/readthedocs.org/user_builds/\$subdomain/rtd-builds/\$1/\$2;
+   }
+}
+
+# -----------------------------
+server {
+
+   # Matching docs.dev.net
+   listen 80;
+   server_name ~^docs\.dev\.net\$;
+   access_log  /var/log/nginx/global-read-the-docs-access.log;
+   error_log   /var/log/nginx/global-read-the-docs-error.log;
+
+   # Avoid 304 problem
+   add_header Cache-Control public;
+   # add_header Cache-Control no-cache;
+   # if_modified_since off;
+   add_header Last-Modified "";
+   add_header ETag "";
+
+   # Forward everything to gunicorn
     location / {
         proxy_pass http://127.0.0.1:8000;
         proxy_set_header Host \$host;
@@ -167,7 +216,7 @@ install_rtd_core () {
     echo 'Done installing rtd reqs'
     install_configure_nginx
     echo 'Configuring /etc/hosts with rtd'
-    [ `grep "read-the-docs" /etc/hosts | wc -l` -gt 0 ] && echo 'read-the-docs already in /etc/hosts' || sudo sh -c 'echo "127.0.0.1   read-the-docs.localhost" >> /etc/hosts'
+    [ `grep "docs" /etc/hosts | wc -l` -gt 0 ] && echo 'docs already in /etc/hosts' || sudo sh -c 'echo "127.0.0.1   *.docs.dev.net" >> /etc/hosts'
     echo ' ------------------ '
     rtd_manage
     echo 'Done installing rtd'
@@ -185,6 +234,10 @@ do_install () {
     install_python27
     # Installing rtd from Python sources
     install_rtd_core
+    # Changing permissions
+    sudo chown -R nginx:nginx $ENV_DIR
+    echo "Make sure the virtualenv is placed in a place where user sphinx has access."
+    namei -om $ENV_DIR
 }
 # -------------------------------------------------
 
