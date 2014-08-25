@@ -24,7 +24,8 @@
 # Website: www.luismartingil.com
 # Year: 2014
 #
-# Credits: http://pfigue.github.io/blog/2013/03/23/read-the-docs-served-standalone-with-gunicorn/
+# Helped by this post: 
+# - http://pfigue.github.io/blog/2013/03/23/read-the-docs-served-standalone-with-gunicorn/
 #
 
 # Actual home folder
