@@ -204,7 +204,8 @@ do_run_gunicorn () {
     echo 'Running rtd server with gunicorn!'
     export PYTHONPATH=$RTD_DIR':'$RTD_IN_DIR
     export DJANGO_SETTINGS_MODULE='readthedocs.settings.sqlite'
-    gunicorn readthedocs.wsgi:application --debug -w 5 --daemon
+    # gunicorn readthedocs.wsgi:application --debug -w 2 --daemon
+    gunicorn readthedocs.wsgi:application -w 5 --daemon
 }
 # -------------------------------------------------
 
