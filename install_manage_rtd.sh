@@ -7,7 +7,7 @@
 # Script actions:
 # - Disables iptables
 # - Installs epel repo
-# - Installs dependencies
+# - Installs dependencies (including whole DEV env and latex)
 # - Installs python pip
 # - Installs python2.7
 # - Installs readthedocs (rtd)
@@ -91,6 +91,10 @@ server {
    add_header Last-Modified "";
    add_header ETag "";
 
+   # Avoiding CSS problem
+   # http://stackoverflow.com/a/11875443/851428
+   include  /etc/nginx/mime.types;
+
    # Forward all medio to gunicorn
    location ~ ^/media/(.*) {
         proxy_pass http://127.0.0.1:8000;
@@ -128,6 +132,10 @@ server {
    # if_modified_since off;
    add_header Last-Modified "";
    add_header ETag "";
+
+   # Avoiding CSS problem
+   # http://stackoverflow.com/a/11875443/851428
+   include  /etc/nginx/mime.types;
 
    # Forward everything to gunicorn
     location / {
