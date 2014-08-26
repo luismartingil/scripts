@@ -73,7 +73,7 @@ install_configure_nginx () {
     echo 'Configuring nginx adding readthedocs server'
     sudo mkdir /etc/nginx/site-enabled
     TMP_FILE=`mktemp`
-    # Note skipping $ symbols
+    # WARNING. skipping $ symbols due to the cat command.
     cat > $TMP_FILE <<EOF
 # -----------------------------
 server {
