@@ -171,7 +171,7 @@ install_req () {
     [ `ls -lart /etc/yum.repos.d/ | grep epel | wc -l` -gt 0 ] && echo 'epel repo already installed' || install_epel
     # Getting dependencies
     sudo yum groupinstall -y "Development tools"
-    sudo yum install -y pdfjam python-devel libxml2 libxslt libxml2-devel libxslt-devel libyaml-devel lxml python-lxml libdbi-dbd-sqlite zlib-devel xz-devel zlib-dev ncurses-devel bzip2-devel openssl-devel libpcap-devel readline-devel python-sqlite2 tk-devel gdbm-devel db4-devel sqlite-devel
+    sudo yum install -y texlive-* pdfjam python-devel libxml2 libxslt libxml2-devel libxslt-devel libyaml-devel lxml python-lxml libdbi-dbd-sqlite zlib-devel xz-devel zlib-dev ncurses-devel bzip2-devel openssl-devel libpcap-devel readline-devel python-sqlite2 tk-devel gdbm-devel db4-devel sqlite-devel
     # Installing pip
     hash pip 2>/dev/null && echo 'pip already installed' || install_pip
     echo 'Done installing dependencies'
@@ -214,7 +214,9 @@ install_rtd_core () {
     pip install pygments --upgrade
     pip install gunicorn --upgrade
     pip install django-redis-cache --upgrade
+    pip install greenlet --upgrade
     pip install gevent --upgrade
+    pip install eventlet --upgrade
     echo 'Done installing rtd reqs'
     install_configure_nginx
     echo 'Configuring /etc/hosts with rtd'
