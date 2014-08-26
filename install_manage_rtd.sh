@@ -41,7 +41,7 @@ RTD_IN_DIR=$RTD_DIR/readthedocs/
 # =================================================
 qquit () {
     echo "Usage: $0 <action>"
-    echo "<action> {install|run-dev|run-gunicorn}"
+    echo "<action> {install|run-dev|run-gunicorn|stop-gunicorn}"
     exit 1
 }
 
@@ -269,10 +269,23 @@ do_run_gunicorn () {
     echo 'Running rtd server with gunicorn!'
     export PYTHONPATH=$RTD_DIR':'$RTD_IN_DIR
     export DJANGO_SETTINGS_MODULE='readthedocs.settings.sqlite'
-    # gunicorn readthedocs.wsgi:application --debug -w 2 --daemon
-    gunicorn -w 2 --threads 4 -k gevent -p gunicorn.pid --worker-connections=2000 --backlog=1000 --log-level=info --daemon readthedocs.wsgi:application
+    # gunicorn readthedocs.wsgi:application --debug -w 2 --daemon -p $RTD_DIR/gunicorn.pid
+    gunicorn -w 2 --threads 4 -k gevent --worker-connections=2000 --backlog=1000 --log-level=info --daemon -p $RTD_DIR/gunicorn.pid readthedocs.wsgi:application
 }
 # -------------------------------------------------
+
+# -------------------------------------------------
+do_stop_gunicorn () {
+    echo 'Stopping guinicorn!'
+    if [ `ps aux | grep -e gunicorn -e readthedocs.wsgi  | wc -l` -gt 0 ]
+    then
+	kill `cat $RTD_DIR/gunicorn.pid`
+    else
+	echo 'no read-the-docs gunicorn running'
+    fi
+}
+# -------------------------------------------------
+
 
 # =================================================
 # Main
@@ -286,6 +299,9 @@ case $1 in
 	;;
     run-gunicorn)
 	do_run_gunicorn
+	;;
+    stop-gunicorn)
+	do_stop_gunicorn
 	;;
     *)
 	qquit
