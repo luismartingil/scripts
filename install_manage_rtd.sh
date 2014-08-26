@@ -260,9 +260,7 @@ do_run_gunicorn () {
     export PYTHONPATH=$RTD_DIR':'$RTD_IN_DIR
     export DJANGO_SETTINGS_MODULE='readthedocs.settings.sqlite'
     # gunicorn readthedocs.wsgi:application --debug -w 2 --daemon
-    # gunicorn readthedocs.wsgi:application -w 5 --daemon
     gunicorn -w 2 --threads 4 -k gevent -p gunicorn.pid --worker-connections=2000 --backlog=1000 --log-level=info --daemon readthedocs.wsgi:application
-
 }
 # -------------------------------------------------
 
