@@ -66,7 +66,7 @@ setup_working_folder() {
 }
 
 activate_python_virtualenv () {
-    cd $ENV ; source bin/activate
+    cd $ENV_DIR ; source bin/activate
 }
 
 rtd_manage () {
