@@ -294,7 +294,6 @@ install_rtd_core () {
     echo ' + Working directoy: "'$DIR'"'
     echo ' + Python virtualenv location: "'$ENV_DIR'"'
     echo ''
-    show_logs_available
 }
 # =================================================
 
