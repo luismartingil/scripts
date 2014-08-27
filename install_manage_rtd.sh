@@ -55,6 +55,7 @@ rtd_is_installed() {
 }
 
 setup_working_folder() {
+    cd /tmp
     if [ -d "$DIR" ]; then
 	sudo rm -fr $DIR
     fi
@@ -231,7 +232,7 @@ install_rtd_core () {
     echo 'Removing previous installation'
     sudo rm -fr $ENV_DIR
     sudo pip install virtualenv    
-    cd ; virtualenv -p python2.7 $ENV_DIR
+    virtualenv -p python2.7 $ENV_DIR
     activate_python_virtualenv
     pip install --upgrade pip
     mkdir checkouts ; cd checkouts
@@ -271,11 +272,11 @@ do_install () {
     # Setup working folder
     setup_working_folder
     # Installing requirements
-    install_req    
+    cd $DIR ; install_req
     # Installing python2.7 if needed
-    install_python27
+    cd $DIR ; install_python27
     # Installing rtd from Python sources
-    install_rtd_core
+    cd $DIR ; install_rtd_core
 }
 # -------------------------------------------------
 
