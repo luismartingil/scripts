@@ -91,9 +91,9 @@ install_configure_nginx () {
     # WARNING. skipping $ symbols due to the cat command.
     cat > $TMP_FILE <<EOF
 # -----------------------------
+# server matching http://<project>.docs.dev.net
 server {
 
-   # Matching project.docs.dev.net
    listen 80;
    server_name ~^(?<subdomain>.+)\.docs\.dev\.net\$;
    access_log  /var/log/nginx/global-read-the-docs-access.log;
@@ -110,7 +110,7 @@ server {
    # http://stackoverflow.com/a/11875443/851428
    include  /etc/nginx/mime.types;
 
-   # Forward all medio to gunicorn
+   # Forward all media to gunicorn
    location ~ ^/media/(.*) {
         proxy_pass http://127.0.0.1:8000;
         proxy_set_header Host \$host;
@@ -133,9 +133,9 @@ server {
 }
 
 # -----------------------------
+# server matching http://docs.dev.net
 server {
 
-   # Matching docs.dev.net
    listen 80;
    server_name ~^docs\.dev\.net\$;
    access_log  /var/log/nginx/global-read-the-docs-access.log;
