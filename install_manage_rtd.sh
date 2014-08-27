@@ -191,9 +191,7 @@ install_pip() {
 
 install_epel() {
     echo 'Installing epel'
-    wget -c http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-    wget -c http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-    sudo rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
+    sudo su -c 'rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm'
     echo 'Done installing epel'
 }
 
