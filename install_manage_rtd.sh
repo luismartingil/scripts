@@ -35,6 +35,7 @@ DIR=/opt/rtd_local
 ENV=rtd
 ENV_DIR=$DIR/$ENV
 ENV_PYTHON_BIN=$ENV_DIR/bin/python
+ENV_GUNICORN_BIN=$ENV_DIR/bin/gunicorn
 RTD_DIR=$ENV_DIR/checkouts/readthedocs.org
 RTD_IN_DIR=$RTD_DIR/readthedocs/
 
@@ -301,8 +302,7 @@ do_run_gunicorn () {
     echo 'Running rtd server with gunicorn!'
     export PYTHONPATH=$RTD_DIR':'$RTD_IN_DIR
     export DJANGO_SETTINGS_MODULE='readthedocs.settings.sqlite'
-    # gunicorn readthedocs.wsgi:application --debug -w 2 --daemon -p $RTD_DIR/gunicorn.pid
-    gunicorn -w 2 --threads 4 -k gevent --worker-connections=2000 --backlog=1000 --log-level=info --daemon -p $RTD_DIR/gunicorn.pid readthedocs.wsgi:application
+    $ENV_GUNICORN_BIN -w 2 --threads 4 -k gevent --worker-connections=2000 --backlog=1000 --log-level=info --daemon -p $RTD_DIR/gunicorn.pid readthedocs.wsgi:application # --debug
 }
 # -------------------------------------------------
 
