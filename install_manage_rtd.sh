@@ -28,9 +28,10 @@
 # - http://pfigue.github.io/blog/2013/03/23/read-the-docs-served-standalone-with-gunicorn/
 #
 
-# Actual home folder
-cd ~
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DIR=/opt/rtd_local
+if [ ! -d "$INIT_DIR" ]; then
+    sudo mkdir -p $INIT_DIR
+fi
 # Some other folder definitions
 ENV=rtd
 ENV_DIR=$DIR/$ENV
@@ -50,17 +51,23 @@ activate_python_virtualenv () {
 }
 
 rtd_manage () {
+    # Manually asking to execute this commands.
+    # In the future the --noinput option must be used,
+    # so this will be automated.
     cd $RTD_DIR
-    echo 'Jump into the virtual env (source bin/activate) and cd '$RTD_DIR' ...Manually run:'
-    echo 'manage.py syncdb...'
-    echo $ENV_PYTHON_BIN' manage.py syncdb'
-    #echo $ENV_PYTHON_BIN' manage.py syncdb --noinput'
-    echo 'manage.py migrate...'
+    echo '-------------------------------------------------------------------'
+    echo 'Run these commands manually, please.'
+    echo 'cd '$RTD_DIR
+    echo 'source bin/activate'
+    echo $ENV_PYTHON_BIN' manage.py syncdb' # --noinput
     echo $ENV_PYTHON_BIN' manage.py migrate'
-    echo 'manage.py test...'
-    echo $ENV_PYTHON_BIN' manage.py test'
-    #echo 'manage.py loaddata test_data...'
-    #$ENV_PYTHON_BIN manage.py loaddata test_data
+    #echo $ENV_PYTHON_BIN' manage.py test'
+    echo $ENV_PYTHON_BIN' loaddata test_data'
+    echo 'deactivate'
+    echo 'sudo chgrp -R nginx '$ENV_DIR
+    echo 'And finally, make sure virtualenv is placed where nginx can access.'
+    echo 'namei -om '$ENV_DIR
+    echo '-------------------------------------------------------------------'
 }
 
 install_configure_nginx () {
@@ -246,10 +253,6 @@ do_install () {
     install_python27
     # Installing rtd from Python sources
     install_rtd_core
-    # Changing permissions
-    sudo chown -R nginx:nginx $ENV_DIR
-    echo "Make sure the virtualenv is placed in a place where user sphinx has access."
-    namei -om $ENV_DIR
 }
 # -------------------------------------------------
 
