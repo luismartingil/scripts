@@ -16,8 +16,8 @@
 #
 #
 # Avg installation time in Centos 6.4 vagrant box with
-# 500MB RAM, 1 CPU @ 2.30GHz, 2GB hard-drive: 
-#     - 
+# 500MB RAM, 1 CPU @ 2.30GHz, 2GB hard-drive: (indicative)
+#     - ~13 min
 #
 #
 # Author: luismartingil
