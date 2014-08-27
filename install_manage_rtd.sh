@@ -49,13 +49,13 @@ qquit () {
 
 configure_django_email() {
     cat > $RTD_SETTINGS_FILE <<EOF
-EMAIL_BACKEND = ''
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'TODO'
 EMAIL_HOST_PASSWORD = 'TODO'
-DEFAULT_FROM_EMAIL = 'root@docs.dev.net'
+DEFAULT_FROM_EMAIL = 'admin@docs.dev.net'
 DEFAULT_TO_EMAIL = 'TODO'
 SERVER_EMAIL = 'admin@docs.dev.net'
 EOF
@@ -285,7 +285,7 @@ install_rtd_core () {
     echo 'Done installing rtd reqs'
     install_configure_nginx
     echo 'Configuring /etc/hosts with rtd'
-    [ `grep "docs" /etc/hosts | wc -l` -gt 0 ] && echo 'docs already in /etc/hosts' || sudo sh -c 'echo "127.0.0.1   *.docs.dev.net" >> /etc/hosts'
+    [ `grep "docs" /etc/hosts | wc -l` -gt 0 ] && echo 'docs already in /etc/hosts' || sudo sh -c 'echo "127.0.0.1   *.docs.dev.net docs.dev.net" >> /etc/hosts'
     echo ' ------------------ '
     rtd_manage
     configure_django_email
