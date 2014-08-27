@@ -28,7 +28,7 @@
 # - http://pfigue.github.io/blog/2013/03/23/read-the-docs-served-standalone-with-gunicorn/
 #
 
-# Working dir
+# Working dir, make sure this location is unique
 DIR=/opt/rtd_local
 
 # Some other folder definitions
@@ -43,6 +43,15 @@ qquit () {
     echo "Usage: $0 <action>"
     echo "<action> {install|run-dev|run-gunicorn|stop-gunicorn}"
     exit 1
+}
+
+rtd_is_installed() {
+  # Needs to improve this condition
+  if [ -d "$DIR" ]; then
+      return 0
+  else
+      return 1
+  fi
 }
 
 setup_working_folder() {
@@ -254,6 +263,10 @@ install_rtd_core () {
 
 # -------------------------------------------------
 do_install () {
+    if rtd_is_installed; then
+	echo 'local rtd already installed, quitting...'
+	exit
+    fi
     # No iptables, please
     sudo service iptables stop
     sudo chkconfig iptables off
