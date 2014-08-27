@@ -255,8 +255,8 @@ install_rtd_core () {
     echo ' ------------------ '
     rtd_manage
     echo 'Done installing rtd'
-    echo ' + Working directoy: \"'$DIR'"'
-    echo ' + Python virtualenv location: \"'$ENV_DIR'"'
+    echo ' + Working directoy: "'$DIR'"'
+    echo ' + Python virtualenv location: "'$ENV_DIR'"'
 }
 # =================================================
 
