@@ -46,6 +46,14 @@ qquit () {
     exit 1
 }
 
+show_logs_available() {
+    echo ' + Logs:'
+    echo '     sudo tail -2222f /var/log/nginx/global-read-the-docs-access.log'
+    echo '     sudo tail -2222f /var/log/nginx/global-read-the-docs-error.log'
+    echo '     sudo tail -2222f '$RTD_DIR'/logs/rtd.log'
+    echo ''
+}
+
 rtd_is_installed() {
   # Needs to improve this condition
   if [ -d "$DIR" ]; then
@@ -66,7 +74,8 @@ setup_working_folder() {
 }
 
 activate_python_virtualenv () {
-    cd $ENV_DIR ; source bin/activate
+    cd $ENV_DIR
+    source bin/activate
 }
 
 rtd_manage () {
@@ -268,10 +277,7 @@ install_rtd_core () {
     echo ' + Working directoy: "'$DIR'"'
     echo ' + Python virtualenv location: "'$ENV_DIR'"'
     echo ''
-    echo ' + Logs:'
-    echo '     sudo tail -2222f /var/log/nginx/global-read-the-docs-access.log'
-    echo '     sudo tail -2222f /var/log/nginx/global-read-the-docs-error.log'
-    echo ''
+    show_logs_available
 }
 # =================================================
 
@@ -348,6 +354,7 @@ case $1 in
 	qquit
 	;;
 esac
+show_logs_available
 T2=$(date +%s)
 diffsec="$(expr $T2 - $T1)"
 echo | awk -v D=$diffsec '{printf "Elapsed time: %02d:%02d:%02d\n",D/(60*60),D%(60*60)/60,D%60}'
