@@ -60,6 +60,7 @@ EMAIL_HOST_PASSWORD = 'TODO'
 DEFAULT_FROM_EMAIL = 'admin@docs.dev.net'
 DEFAULT_TO_EMAIL = 'TODO'
 SERVER_EMAIL = 'admin@docs.dev.net'
+ADMINS = (('TODO', 'TODO@gmail.com'))
 EOF
 }
 
