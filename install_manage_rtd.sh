@@ -75,12 +75,14 @@ rtd_manage () {
     # so this will be automated.
     cd $RTD_DIR
     echo '-------------------------------------------------------------------'
-    echo 'Run these commands manually, please.'
+    echo ' WARNING. Installation not completed yet.'
+    echo '-------------------------------------------------------------------'
+    echo '# Run these commands manually, please.'
     echo 'cd '$ENV_DIR
     echo 'source bin/activate'
     echo 'cd '$RTD_DIR
     echo ''
-    echo 'Answer yes and create new user/pass.'
+    echo '# Answer yes and create new user/pass.'
     echo $ENV_PYTHON_BIN' manage.py syncdb' # --noinput
     echo $ENV_PYTHON_BIN' manage.py migrate'
     #echo $ENV_PYTHON_BIN' manage.py test'
@@ -89,7 +91,7 @@ rtd_manage () {
     echo 'deactivate'
     echo 'sudo chgrp -R nginx '$DIR
     echo ''
-    echo 'Make sure virtualenv is placed where nginx can access, please.'
+    echo '# Make sure virtualenv is placed where nginx can access, please.'
     echo 'namei -om '$ENV_DIR
     echo '-------------------------------------------------------------------'
 }
