@@ -38,12 +38,27 @@ ENV_PYTHON_BIN=$ENV_DIR/bin/python
 ENV_GUNICORN_BIN=$ENV_DIR/bin/gunicorn
 RTD_DIR=$ENV_DIR/checkouts/readthedocs.org
 RTD_IN_DIR=$RTD_DIR/readthedocs/
+RTD_SETTINGS_FILE=$RTD_IN_DIR/settings/local_settings.py
 
 # =================================================
 qquit () {
     echo "Usage: $0 <action>"
     echo "<action> {install|start-dev|start-gunicorn|stop-gunicorn}"
     exit 1
+}
+
+configure_django_email() {
+    cat > $RTD_SETTINGS_FILE <<EOF
+EMAIL_BACKEND = ''
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'TODO'
+EMAIL_HOST_PASSWORD = 'TODO'
+DEFAULT_FROM_EMAIL = 'root@docs.dev.net'
+DEFAULT_TO_EMAIL = 'TODO'
+SERVER_EMAIL = 'admin@docs.dev.net'
+EOF
 }
 
 show_logs_available() {
@@ -273,6 +288,8 @@ install_rtd_core () {
     [ `grep "docs" /etc/hosts | wc -l` -gt 0 ] && echo 'docs already in /etc/hosts' || sudo sh -c 'echo "127.0.0.1   *.docs.dev.net" >> /etc/hosts'
     echo ' ------------------ '
     rtd_manage
+    configure_django_email
+    echo 'Please edit: '$RTD_SETTINGS_FILE
     echo 'Done installing rtd'
     echo ' + Working directoy: "'$DIR'"'
     echo ' + Python virtualenv location: "'$ENV_DIR'"'
