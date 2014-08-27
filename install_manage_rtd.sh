@@ -28,10 +28,9 @@
 # - http://pfigue.github.io/blog/2013/03/23/read-the-docs-served-standalone-with-gunicorn/
 #
 
+# Working dir
 DIR=/opt/rtd_local
-if [ ! -d "$INIT_DIR" ]; then
-    sudo mkdir -p $INIT_DIR
-fi
+
 # Some other folder definitions
 ENV=rtd
 ENV_DIR=$DIR/$ENV
@@ -44,6 +43,15 @@ qquit () {
     echo "Usage: $0 <action>"
     echo "<action> {install|run-dev|run-gunicorn|stop-gunicorn}"
     exit 1
+}
+
+setup_working_folder() {
+    if [ -d "$DIR" ]; then
+	sudo rm -fr $DIR
+    fi
+    sudo mkdir -p $DIR
+    sudo chown -R `whoami`:`whoami` $DIR
+    cd $DIR
 }
 
 activate_python_virtualenv () {
@@ -246,7 +254,9 @@ install_rtd_core () {
 do_install () {
     # No iptables, please
     sudo service iptables stop
-    sudo chkconfig iptables off    
+    sudo chkconfig iptables off
+    # Setup working folder
+    setup_working_folder
     # Installing requirements
     install_req    
     # Installing python2.7 if needed
