@@ -42,7 +42,7 @@ RTD_IN_DIR=$RTD_DIR/readthedocs/
 # =================================================
 qquit () {
     echo "Usage: $0 <action>"
-    echo "<action> {install|run-dev|run-gunicorn|stop-gunicorn}"
+    echo "<action> {install|start-dev|start-gunicorn|stop-gunicorn}"
     exit 1
 }
 
@@ -302,7 +302,7 @@ do_install () {
 # -------------------------------------------------
 
 # -------------------------------------------------
-do_run_dev () {
+do_start_dev () {
     activate_python_virtualenv
     cd $RTD_DIR
     echo 'Running rtd server!'
@@ -311,7 +311,7 @@ do_run_dev () {
 # -------------------------------------------------
 
 # -------------------------------------------------
-do_run_gunicorn () {
+do_start_gunicorn () {
     activate_python_virtualenv
     cd $RTD_DIR
     echo 'Running rtd server with gunicorn!'
@@ -341,11 +341,11 @@ case $1 in
     install)
 	do_install
 	;;
-    run-dev)
-	do_run_dev
+    start-dev)
+	do_start_dev
 	;;
-    run-gunicorn)
-	do_run_gunicorn
+    start-gunicorn)
+	do_start_gunicorn
 	;;
     stop-gunicorn)
 	do_stop_gunicorn
