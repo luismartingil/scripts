@@ -78,11 +78,13 @@ rtd_manage () {
     echo 'cd '$ENV_DIR
     echo 'source bin/activate'
     echo 'cd '$RTD_DIR
+    echo ''
+    echo 'Answer yes and create new user/pass.'
     echo $ENV_PYTHON_BIN' manage.py syncdb' # --noinput
     echo $ENV_PYTHON_BIN' manage.py migrate'
     #echo $ENV_PYTHON_BIN' manage.py test'
     echo $ENV_PYTHON_BIN' manage.py loaddata test_data'
-    echo $ENV_PYTHON_BIN' manage.py update_repos pip'
+    #echo $ENV_PYTHON_BIN' manage.py update_repos pip'
     echo 'deactivate'
     echo 'sudo chgrp -R nginx '$DIR
     echo ''
