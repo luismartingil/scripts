@@ -75,15 +75,18 @@ rtd_manage () {
     cd $RTD_DIR
     echo '-------------------------------------------------------------------'
     echo 'Run these commands manually, please.'
-    echo 'cd '$RTD_DIR
+    echo 'cd '$ENV_DIR
     echo 'source bin/activate'
+    echo 'cd '$RTD_DIR
     echo $ENV_PYTHON_BIN' manage.py syncdb' # --noinput
     echo $ENV_PYTHON_BIN' manage.py migrate'
     #echo $ENV_PYTHON_BIN' manage.py test'
-    echo $ENV_PYTHON_BIN' loaddata test_data'
+    echo $ENV_PYTHON_BIN' manage.py loaddata test_data'
+    echo $ENV_PYTHON_BIN' manage.py update_repos pip'
     echo 'deactivate'
-    echo 'sudo chgrp -R nginx '$ENV_DIR
-    echo 'And finally, make sure virtualenv is placed where nginx can access.'
+    echo 'sudo chgrp -R nginx '$DIR
+    echo ''
+    echo 'Make sure virtualenv is placed where nginx can access, please.'
     echo 'namei -om '$ENV_DIR
     echo '-------------------------------------------------------------------'
 }
