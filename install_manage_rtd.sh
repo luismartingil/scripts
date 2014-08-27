@@ -134,17 +134,18 @@ server {
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
    }
    # If project.docs.dev.net/path, try to show master branch
+   # To be changed: ___my_envrtd_dir___
    location / {
-        alias /root/rtd/checkouts/readthedocs.org/user_builds/\$subdomain/rtd-builds/latest/;
+        alias ___my_envrtd_dir___/checkouts/readthedocs.org/user_builds/\$subdomain/rtd-builds/latest/;
    }
    # If project.docs.dev.net/en/branch/ or
    #    project.docs.dev.net/en/branch go to branch
    location ~ ^/en/(.+)(/?) {
-        alias /root/rtd/checkouts/readthedocs.org/user_builds/\$subdomain/rtd-builds/\$1;
+        alias ___my_envrtd_dir___/checkouts/readthedocs.org/user_builds/\$subdomain/rtd-builds/\$1;
    }
    # If project.docs.dev.net/en/branch/path go to branch/path
    location ~ ^/en/(.+)/(.+) {
-        alias /root/rtd/checkouts/readthedocs.org/user_builds/\$subdomain/rtd-builds/\$1/\$2;
+        alias ___my_envrtd_dir___/checkouts/readthedocs.org/user_builds/\$subdomain/rtd-builds/\$1/\$2;
    }
 }
 
@@ -177,6 +178,7 @@ server {
     }
 }
 EOF
+    sudo sed -i 's,___my_envrtd_dir___,'$ENV_DIR',g' $TMP_FILE
     sudo mv $TMP_FILE /etc/nginx/site-enabled/read-the-docs.localhost.conf
     sudo sed -i 's,include,#include,g' /etc/nginx/nginx.conf
     sudo sed -i '/http {/a include /etc/nginx/site-enabled/*.conf;' /etc/nginx/nginx.conf
@@ -263,6 +265,11 @@ install_rtd_core () {
     echo 'Done installing rtd'
     echo ' + Working directoy: "'$DIR'"'
     echo ' + Python virtualenv location: "'$ENV_DIR'"'
+    echo ''
+    echo ' + Logs:'
+    echo '     sudo tail -2222f /var/log/nginx/global-read-the-docs-access.log'
+    echo '     sudo tail -2222f /var/log/nginx/global-read-the-docs-error.log'
+    echo ''
 }
 # =================================================
 
