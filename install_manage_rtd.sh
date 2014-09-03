@@ -277,7 +277,7 @@ install_rtd_core () {
     cd readthedocs.org
     echo 'Installing rtd reqs'
     pip install -r pip_requirements.txt
-    pip install sphinx_bootstrap_theme --upgrade
+    pip install sphinx-bootstrap-theme --upgrade
     pip install sphinx --upgrade
     pip install pygments --upgrade
     pip install gunicorn --upgrade
