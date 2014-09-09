@@ -300,7 +300,6 @@ install_rtd_core () {
 	sudo sh -c 'echo "127.0.0.1   *.docs.dev.net docs.dev.net" >> /etc/hosts'
     fi
     cat /etc/hosts
-    echo 'Probably you also need to change the IP server! TODO'
     echo ' ------------------ '
     rtd_manage
     configure_django_email
