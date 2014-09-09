@@ -289,6 +289,7 @@ install_rtd_core () {
     install_configure_nginx
     echo 'Configuring /etc/hosts with rtd'
     [ `grep "docs" /etc/hosts | wc -l` -gt 0 ] && echo 'docs already in /etc/hosts' || sudo sh -c 'echo "127.0.0.1   *.docs.dev.net docs.dev.net" >> /etc/hosts'
+    echo 'Probably you also need to change the IP server! TODO'
     echo ' ------------------ '
     rtd_manage
     configure_django_email
