@@ -61,6 +61,7 @@ DEFAULT_FROM_EMAIL = 'admin@docs.dev.net'
 DEFAULT_TO_EMAIL = 'TODO'
 SERVER_EMAIL = 'admin@docs.dev.net'
 ADMINS = (('TODO', 'TODO@gmail.com'))
+PRODUCTION_DOMAIN = 'docs.dev.net'
 EOF
 }
 
@@ -288,7 +289,17 @@ install_rtd_core () {
     echo 'Done installing rtd reqs'
     install_configure_nginx
     echo 'Configuring /etc/hosts with rtd'
-    [ `grep "docs" /etc/hosts | wc -l` -gt 0 ] && echo 'docs already in /etc/hosts' || sudo sh -c 'echo "127.0.0.1   *.docs.dev.net docs.dev.net" >> /etc/hosts'
+    if [ `grep "docs" /etc/hosts | wc -l` -gt 0 ]
+    then
+	echo 'docs already in /etc/hosts'
+    else
+	for i in `hostname -I`; 
+	do
+	    sudo sh -c 'echo "'$i'   *.docs.dev.net docs.dev.net" >> /etc/hosts';
+	done
+	sudo sh -c 'echo "127.0.0.1   *.docs.dev.net docs.dev.net" >> /etc/hosts'
+    fi
+    cat /etc/hosts
     echo 'Probably you also need to change the IP server! TODO'
     echo ' ------------------ '
     rtd_manage
