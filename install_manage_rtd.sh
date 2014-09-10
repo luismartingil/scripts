@@ -124,6 +124,21 @@ rtd_manage () {
     echo '-------------------------------------------------------------------'
 }
 
+configure_etc_hosts() {
+    echo 'Configuring /etc/hosts including rtd'
+    if [ `grep "docs" /etc/hosts | wc -l` -gt 0 ]
+    then
+	echo 'docs already in /etc/hosts'
+    else
+	for i in `hostname -I`; 
+	do
+	    sudo sh -c 'echo "'$i'   *.docs.dev.net docs.dev.net" >> /etc/hosts';
+	done
+	sudo sh -c 'echo "127.0.0.1   *.docs.dev.net docs.dev.net" >> /etc/hosts'
+    fi
+    cat /etc/hosts
+}
+
 install_configure_nginx () {
     echo 'Removing previous nginx installation, if any'
     sudo service nginx stop
@@ -288,18 +303,7 @@ install_rtd_core () {
     pip install eventlet --upgrade
     echo 'Done installing rtd reqs'
     install_configure_nginx
-    echo 'Configuring /etc/hosts with rtd'
-    if [ `grep "docs" /etc/hosts | wc -l` -gt 0 ]
-    then
-	echo 'docs already in /etc/hosts'
-    else
-	for i in `hostname -I`; 
-	do
-	    sudo sh -c 'echo "'$i'   *.docs.dev.net docs.dev.net" >> /etc/hosts';
-	done
-	sudo sh -c 'echo "127.0.0.1   *.docs.dev.net docs.dev.net" >> /etc/hosts'
-    fi
-    cat /etc/hosts
+    configure_etc_hosts
     echo ' ------------------ '
     rtd_manage
     configure_django_email
