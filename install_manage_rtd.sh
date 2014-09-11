@@ -284,7 +284,8 @@ install_rtd_core () {
     echo 'Installing rtd'
     echo 'Removing previous installation'
     sudo rm -fr $ENV_DIR
-    sudo pip install virtualenv    
+    sudo pip install setuptools --upgrade
+    sudo pip install virtualenv --upgrade
     virtualenv -p python2.7 $ENV_DIR
     activate_python_virtualenv
     pip install --upgrade pip
