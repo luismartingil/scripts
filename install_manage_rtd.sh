@@ -297,6 +297,7 @@ install_rtd_core () {
     pip install sphinx-bootstrap-theme --upgrade
     pip install sphinx --upgrade
     pip install pygments --upgrade
+    pip install sphinxcontrib-httpdomain --upgrade
     pip install gunicorn --upgrade
     pip install django-redis-cache --upgrade
     pip install greenlet --upgrade
