@@ -47,7 +47,7 @@ qquit () {
     exit 1
 }
 
-configure_django_email() {
+configure_django() {
     cat > $RTD_SETTINGS_FILE <<EOF
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
@@ -308,7 +308,7 @@ install_rtd_core () {
     configure_etc_hosts
     echo ' ------------------ '
     rtd_manage
-    configure_django_email
+    configure_django
     echo 'Please edit: '$RTD_SETTINGS_FILE
     echo 'Done installing rtd'
     echo ' + Working directoy: "'$DIR'"'
