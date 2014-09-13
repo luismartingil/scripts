@@ -234,6 +234,20 @@ EOF
     echo 'nginx configured for rtd'
 }
 
+install_other_pips () {
+    pip install sphinx --upgrade
+    pip install sphinxcontrib-httpdomain --upgrade
+    pip install sphinx-bootstrap-theme --upgrade
+    pip install sphinxjp.themes.basicstrap --upgrade
+    pip install alabaster --upgrade
+    pip install pygments --upgrade
+    pip install gunicorn --upgrade
+    pip install django-redis-cache --upgrade
+    pip install greenlet --upgrade
+    pip install gevent --upgrade
+    pip install eventlet --upgrade
+}
+
 install_pip() {
     echo 'Installing pip'
     curl https://raw.githubusercontent.com/pypa/pip/master/contrib/get-pip.py | sudo python -
@@ -288,23 +302,13 @@ install_rtd_core () {
     sudo pip install virtualenv --upgrade
     virtualenv -p python2.7 $ENV_DIR
     activate_python_virtualenv
-    pip install --upgrade pip
     mkdir checkouts ; cd checkouts
     git clone https://github.com/rtfd/readthedocs.org.git
     cd readthedocs.org
     echo 'Installing rtd reqs'
+    pip install pip --upgrade
     pip install -r pip_requirements.txt
-    pip install sphinx --upgrade
-    pip install sphinxcontrib-httpdomain --upgrade
-    pip install sphinx-bootstrap-theme --upgrade
-    pip install sphinxjp.themes.basicstrap --upgrade
-    pip install alabaster --upgrade
-    pip install pygments --upgrade
-    pip install gunicorn --upgrade
-    pip install django-redis-cache --upgrade
-    pip install greenlet --upgrade
-    pip install gevent --upgrade
-    pip install eventlet --upgrade
+    install_other_pips
     echo 'Done installing rtd reqs'
     install_configure_nginx
     configure_etc_hosts
