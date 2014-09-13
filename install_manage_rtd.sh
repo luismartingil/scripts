@@ -297,6 +297,7 @@ install_rtd_core () {
     pip install sphinx --upgrade
     pip install sphinxcontrib-httpdomain --upgrade
     pip install sphinx-bootstrap-theme --upgrade
+    pip install sphinxjp.themes.basicstrap --upgrade
     pip install alabaster --upgrade
     pip install pygments --upgrade
     pip install gunicorn --upgrade
