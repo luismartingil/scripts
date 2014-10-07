@@ -62,6 +62,7 @@ DEFAULT_TO_EMAIL = 'TODO'
 SERVER_EMAIL = 'admin@docs.dev.net'
 ADMINS = (('TODO', 'TODO@gmail.com'))
 PRODUCTION_DOMAIN = 'docs.dev.net'
+ALLOW_PRIVATE_REPOS = True
 EOF
 }
 
