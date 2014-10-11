@@ -54,24 +54,32 @@ set myColor4 to {16448.0, 14135.0, 14392.0}
 set myColor4dark to {10794.0, 8481.0, 8738.0}
 set myColor4bright to {22102.0, 19789.0, 20046.0}
 
+set zoomVHigh to 10
+set zoomHigh to 8
+set zoomMed to 6
+set zoomLow to 4
+set zoomVLow to 2
+
+set myDelay 0.2
+
 tell application "iTerm"
 	
 	-- First tab
 	set myItem1 to {}
-	set myItem1 to myItem1 & {{color:"yellow", cmds:{"echo yellow", "ls -lrt"}, name:"name_yellow", trans:"0.1", zoomout:4, split:"h"}}
-	set myItem1 to myItem1 & {{color:"blue", cmds:{"echo blue1", "ls -lrt"}, name:"name_blue1", trans:"0.1", zoomout:2, split:"v"}}
-	set myItem1 to myItem1 & {{color:"blue", cmds:{"echo blue2", "ls -lrt"}, name:"name_blue2", trans:"0.1", zoomout:4, split:"v"}}
-	set myItem1 to myItem1 & {{color:"blue", cmds:{"echo blue3", "ls -lrt"}, name:"name_blue3", trans:"0.1", zoomout:6}}
+	set myItem1 to myItem1 & {{color:"yellow", cmds:{"echo yellow", "ls -lrt"}, name:"name_yellow", trans:"0.1", zoomout:zoomLow, split:"h"}}
+	set myItem1 to myItem1 & {{color:"blue", cmds:{"echo blue1", "ls -lrt"}, name:"name_blue1", trans:"0.1", zoomout:zoomVLow, split:"v"}}
+	set myItem1 to myItem1 & {{color:"blue", cmds:{"echo blue2", "ls -lrt"}, name:"name_blue2", trans:"0.1", zoomout:zoomLow, split:"v"}}
+	set myItem1 to myItem1 & {{color:"blue", cmds:{"echo blue3", "ls -lrt"}, name:"name_blue3", trans:"0.1", zoomout:zoomMed}}
 	
 	-- Second tab	
 	set myItem2 to {}
-	set myItem2 to myItem2 & {{color:"red", cmds:{"echo red1", "ls -lrt"}, name:"name_red1", trans:"0.1", zoomout:8, split:"h"}}
-	set myItem2 to myItem2 & {{color:"red", cmds:{"echo red2", "ls -lrt"}, name:"name_red2", trans:"0.1", zoomout:4}}
+	set myItem2 to myItem2 & {{color:"red", cmds:{"echo red1", "ls -lrt"}, name:"name_red1", trans:"0.1", zoomout:zoomHigh, split:"h"}}
+	set myItem2 to myItem2 & {{color:"red", cmds:{"echo red2", "ls -lrt"}, name:"name_red2", trans:"0.1", zoomout:zoomLow}}
 	
 	-- Third tab
 	set myItem3 to {}
-	set myItem3 to myItem3 & {{color:"green", cmds:{"echo green", "ls -lrt"}, name:"name_green", trans:"0.1", zoomout:2, split:"v"}}
-	set myItem3 to myItem3 & {{color:"purple", cmds:{"echo purple", "ls -lrt"}, name:"name_purple", trans:"0.1", zoomout:4}}
+	set myItem3 to myItem3 & {{color:"green", cmds:{"echo green", "ls -lrt"}, name:"name_green", trans:"0.1", zoomout:zoomVLow, split:"v"}}
+	set myItem3 to myItem3 & {{color:"purple", cmds:{"echo purple", "ls -lrt"}, name:"name_purple", trans:"0.1", zoomout:zoomLow}}
 	
 	set myTermWindow to {myItem1, myItem2, myItem3}
 	
@@ -82,25 +90,25 @@ tell application "iTerm"
 			launch session n
 			repeat with i from 1 to count of (item n of myTermWindow)
 				-- Lets set the properties of the actual tab
-                                delay 0.1
+                                delay myDelay
 				tell the last session to set name to name of (item i of (item n of myTermWindow))
-				delay 0.1
+				delay myDelay
 				tell the last session to set background color to color of (item i of (item n of myTermWindow))
-				delay 0.1
+				delay myDelay
 				tell the last session to set transparency to trans of (item i of (item n of myTermWindow))
 				-- Some commands might require more columns to be readable
-				delay 0.1
+				delay myDelay
 				repeat zoomout of (item i of (item n of myTermWindow)) times
 					tell i term application "System Events" to keystroke "-" using command down
-                                        delay 0.1
+                                        delay myDelay
 				end repeat
 				-- Lets execute the commands for the tab
-				delay 0.1
+				delay myDelay
 				repeat with cmd in cmds of (item i of (item n of myTermWindow))
 					tell the last session to write text cmd
 				end repeat
 				-- Split the pane in a "D" (vertical) or "d" (horizontal) way
-				delay 0.1
+				delay myDelay
 				if i is less than (count of (item n of myTermWindow)) then
 					if "h" is split of (item i of (item n of myTermWindow)) then
 						set split_str to "D"
