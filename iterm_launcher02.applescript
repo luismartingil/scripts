@@ -60,7 +60,7 @@ set zoomMed to 6
 set zoomLow to 4
 set zoomVLow to 2
 
-set myDelay 0.2
+set myDelay to 0.2
 
 tell application "iTerm"
 	
