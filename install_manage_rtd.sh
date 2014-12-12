@@ -241,6 +241,8 @@ install_other_pips () {
     pip install sphinx-bootstrap-theme --upgrade
     pip install sphinxjp.themes.basicstrap --upgrade
     pip install sphinxcontrib-tikz --upgrade
+    pip install sphinxcontrib-doxylink --upgrade
+    pip install sphinx_scruffy --upgrade
     pip install alabaster --upgrade
     pip install pygments --upgrade
     pip install gunicorn --upgrade
@@ -272,8 +274,8 @@ install_req () {
     # Getting dependencies
     sudo yum groupinstall -y "Development tools"
     sudo yum install -y texlive-* pdfjam python-devel libxml2 libxslt libxml2-devel libxslt-devel libyaml-devel lxml python-lxml libdbi-dbd-sqlite zlib-devel xz-devel zlib-dev ncurses-devel bzip2-devel openssl-devel libpcap-devel readline-devel python-sqlite2 tk-devel gdbm-devel db4-devel sqlite-devel
-    # Installing tikz plugin requirements
-    sudo yum install -y netpbm netpbm-devel ImageMagick poppler poppler-utils  pypoppler tex-preview mimetex
+    # Installing tikz and graphviz plugin requirements
+    sudo yum install -y netpbm netpbm-devel ImageMagick poppler poppler-utils  pypoppler tex-preview mimetex doxygen graphviz plotutils-devel plotutils librsvg2-devel librsvg2 thai-scalable-purisa-fonts
     # Installing pip
     hash pip 2>/dev/null && echo 'pip already installed' || install_pip
     echo 'Done installing dependencies'
