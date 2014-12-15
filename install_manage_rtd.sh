@@ -237,6 +237,7 @@ EOF
 
 install_other_pips () {
     pip install sphinx --upgrade
+    pip install sphinxcontrib-seqdiag --upgrade
     pip install sphinxcontrib-httpdomain --upgrade
     pip install sphinx-bootstrap-theme --upgrade
     pip install sphinxjp.themes.basicstrap --upgrade
