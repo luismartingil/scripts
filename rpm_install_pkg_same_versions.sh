@@ -71,7 +71,9 @@ install_reqs () {
 }
 
 repo_clean () {
-    sudo yum --enablerepo=$repo clean metadata ; sudo yum clean expire-cache ;  sudo yum clean all
+    sudo yum --enablerepo=$repo clean metadata ;
+    sudo yum clean expire-cache ;
+    sudo yum clean all ;
 }
 
 run_main () {
