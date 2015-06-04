@@ -123,7 +123,7 @@ sudo chkconfig iptables off
 
 # Create the RPM repo which will be
 # served by the FTP server installed.
-CREATE_REPO_CMD='sudo createrepo --update -v '$RPM_FOLDER
+CREATE_REPO_CMD='rm -frv $RPM_FOLDER/.olddata ; createrepo --update -v '$RPM_FOLDER
 eval $CREATE_REPO_CMD
 
 # Installing that command into crontab
