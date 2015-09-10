@@ -9,7 +9,7 @@
 VER=2.0.1
 
 # Installing some stuff
-sudo apt-get install -y emacs tshark gcc make python git gnustep-gui-runtime alsa-utils linux-sound-base sox beep alsa-utils linux-sound-base gcc build-essential make g++ gpp alsaplayer-daemon libasound2 libasound2-dev gcc build-essential make g++ gpp libpulse-dev alsaplayer-daemon libasound2 libasound2-dev portaudio19-dev libportaudio2 pulseaudio alsa-utils libasound2-plugins libasound2 binutils binutils-dev
+sudo apt-get install -y emacs tshark gcc make python git gnustep-gui-runtime alsa-utils linux-sound-base sox beep linux-sound-base gcc build-essential make g++ gpp alsaplayer-daemon libasound2 libasound2-dev gcc build-essential make g++ gpp libpulse-dev alsaplayer-daemon libasound2 libasound2-dev portaudio19-dev libportaudio2 pulseaudio alsa-utils libasound2-plugins libasound2 binutils binutils-dev
 
 # Myself to the audio group, please.
 sudo adduser `whoami` audio
