@@ -6,6 +6,21 @@
 # Year: 2015
 #
 
+# Output example,
+#
+# $ ./test_rpm_consistency.sh
+# Checking consistency for "packager" rpm header...
+# Success.
+# Checking consistency for "url" rpm header...
+# Failed. Found "2" different values.
+# Checking consistency for "license" rpm header...
+# Failed. Found "3" different values.
+# Checking consistency for "group" rpm header...
+# Failed. Found "3" different values.
+# Checking consistency for "vendor" rpm header...
+# Success.
+
+
 RPM_FOLDER_PATH=/rpms
 NOT_STRING=third-party
 
