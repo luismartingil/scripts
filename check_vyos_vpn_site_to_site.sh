@@ -34,8 +34,6 @@ print_help() {
 	echo ""
 	echo "	-v|--version	prints version"
 	echo ""
-	echo " Created by Zaleos"
-	echo ""
 }
 
 check_vpn() {
