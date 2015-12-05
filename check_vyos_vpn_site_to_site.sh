@@ -56,13 +56,13 @@ check_vpn() {
 	FILE_PEER_DETAIL=$TMP_DIR/peer_detail
 	ssh $2@$1 "sudo $VYATTA_VPN_CMD --show-ipsec-sa-peer-detail="$VPN_PEER"" > $FILE_PEER_DETAIL
 
-	FILE_STATS_PEER=$TMP_DIR/stats_peer
-	ssh $2@$1 "sudo $VYATTA_VPN_CMD --show-ipsec-sa-stats-peer="$VPN_PEER"" > $FILE_STATS_PEER
+	# FILE_STATS_PEER=$TMP_DIR/stats_peer
+	# ssh $2@$1 "sudo $VYATTA_VPN_CMD --show-ipsec-sa-stats-peer="$VPN_PEER"" > $FILE_STATS_PEER
 
 	FILE_IKE_PEER=$TMP_DIR/file_ike
 	ssh $2@$1 "sudo $VYATTA_VPN_CMD --show-ike-sa-peer="$VPN_PEER"" > $FILE_IKE_PEER
 
-	# With the information in the local fies, let grab what we want
+	# With the information in the local fies, lets grab what we want
 	tunnel_state_peer=$(cat $FILE_PEER_DETAIL | grep State | awk '{print $2}')
 	inbound_bytes=$(cat $FILE_PEER_DETAIL | grep "Inbound Bytes" | awk '{print $3}')
 	outbound_bytes=$(cat $FILE_PEER_DETAIL | grep "Outbound Bytes" | awk '{print $3}')
