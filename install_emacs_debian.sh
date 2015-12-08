@@ -6,7 +6,6 @@
 #
 # Debian based installation script
 
-
 install_emacs () {
     VER=24.5
     sudo apt-get install -y git-core libxaw7-dev libxpm-dev libpng12-dev libtiff5-dev libgif-dev libjpeg8-dev libgtk2.0-dev libncurses5-dev autoconf automake texinfo
