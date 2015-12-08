@@ -6,14 +6,24 @@
 #
 # Centos friendly installation script
 
-SOURCES_PATH=/usr/local/src/
+SOURCES_PATH=/usr/local/src/jekyll_installation
+
+install_repo() {
+    curl -O http://linuxsoft.cern.ch/cern/scl/slc6-scl.repo
+    sudo mv slc6-scl.repo /etc/yum.repos.d/
+    sudo rpm --import http://ftp.mirrorservice.org/sites/ftp.scientificlinux.org/linux/scientific/51/i386/RPM-GPG-KEYs/RPM-GPG-KEY-cern
+    sudo yum clean all
+}
 
 install_reqs() {
-    sudo yum -y install gcc gcc-c++
-    sudo yum -y install devtoolset-3
-    sudo yum -y install gcc-c++ patch readline readline-devel zlib zlib-devel
+    sudo yum -y install devtoolset-3 gcc g++ gcc-c++
+    sudo yum -y install patch readline readline-devel zlib zlib-devel
     sudo yum -y install libyaml-devel libffi-devel openssl-devel make bzip2
-    sudo yum -y install autoconf automake libtool bison iconv-devel
+    sudo yum -y install autoconf automake libtool bison
+}
+
+enable_reqs() {
+    scl enable devtoolset-3 bash
 }
 
 install_ruby() {
@@ -49,3 +59,13 @@ install_nodejs () {
     sudo make install
     popd    
 }
+
+sudo mkdir -p $SOURCES_PATH
+sudo chown -R `whoami`:`whoami` $SOURCES_PATH
+
+install_repo
+install_reqs
+enable_reqs
+install_ruby
+install_rubygems
+install_nodejs
