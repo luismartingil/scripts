@@ -53,6 +53,10 @@ install_nodejs () {
 EOF
 }
 
+install_jekyll () {
+    sudo /usr/local/bin/gem install jekyll
+}
+
 sudo mkdir -p $SOURCES_PATH
 sudo chown -R `whoami`:`whoami` $SOURCES_PATH
 
@@ -63,4 +67,5 @@ pushd $SOURCES_PATH
 install_ruby
 install_rubygems
 install_nodejs
+install_jekyll
 popd
