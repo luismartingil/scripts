@@ -23,30 +23,26 @@ install_reqs() {
 }
 
 install_ruby() {
-    scl enable devtoolset-3 - <<EOF
     wget https://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.7.tar.gz
     tar -xvf ruby-2.1.7.tar.gz
     cd ruby-2.1.7/
     ./configure
     make --jobs=4
     sudo make install
-EOF
 }
 
 install_rubygems () {
-    scl enable devtoolset-3 - <<EOF    
     wget https://rubygems.org/rubygems/rubygems-2.4.8.tgz
     tar -xvf rubygems-2.4.8.tgz
     cd rubygems-2.4.8/
     sudo -i ruby setup.rb
-EOF
 }
 
 install_nodejs () {
-    scl enable devtoolset-3 - <<EOF
     wget https://nodejs.org/dist/v4.2.1/node-v4.2.1.tar.gz
     tar -xvf node-v4.2.1.tar.gz
     cd node-v4.2.1/
+    scl enable devtoolset-3 - <<EOF
     ./configure
     make --jobs=4
     sudo make install
