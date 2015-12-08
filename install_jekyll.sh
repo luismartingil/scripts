@@ -22,42 +22,35 @@ install_reqs() {
     sudo yum -y install autoconf automake libtool bison
 }
 
-enable_reqs() {
-    scl enable devtoolset-3 bash
-}
-
 install_ruby() {
-    VERSION=2.1.7
-    pushd $SOURCES_PATH
-    wget https://cache.ruby-lang.org/pub/ruby/2.1/ruby-$VERSION.tar.gz
-    tar -xvf ruby-$VERSION.tar.gz
-    cd ruby-$VERSION/
+    scl enable devtoolset-3 - <<EOF
+    wget https://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.7.tar.gz
+    tar -xvf ruby-2.1.7.tar.gz
+    cd ruby-2.1.7/
     ./configure
     make --jobs=4
     sudo make install
-    popd
+EOF
 }
 
 install_rubygems () {
-    VERSION=2.4.8
-    pushd $SOURCES_PATH
-    wget https://rubygems.org/rubygems/rubygems-$VERSION.tgz
-    tar -xvf rubygems-$VERSION.tgz
-    cd rubygems-$VERSION/
+    scl enable devtoolset-3 - <<EOF    
+    wget https://rubygems.org/rubygems/rubygems-2.4.8.tgz
+    tar -xvf rubygems-2.4.8.tgz
+    cd rubygems-2.4.8/
     sudo -i ruby setup.rb
-    popd
+EOF
 }
 
 install_nodejs () {
-    VERSION=4.2.1
-    pushd $SOURCES_PATH
-    wget https://nodejs.org/dist/v$VERSION/node-v$VERSION.tar.gz
-    tar -xvf node-v$VERSION.tar.gz
-    cd node-v$VERSION/
+    scl enable devtoolset-3 - <<EOF
+    wget https://nodejs.org/dist/v4.2.1/node-v4.2.1.tar.gz
+    tar -xvf node-v4.2.1.tar.gz
+    cd node-v4.2.1/
     ./configure
     make --jobs=4
     sudo make install
-    popd    
+EOF
 }
 
 sudo mkdir -p $SOURCES_PATH
@@ -65,7 +58,9 @@ sudo chown -R `whoami`:`whoami` $SOURCES_PATH
 
 install_repo
 install_reqs
-enable_reqs
+
+pushd $SOURCES_PATH
 install_ruby
 install_rubygems
 install_nodejs
+popd
