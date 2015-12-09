@@ -22,6 +22,12 @@ install_reqs() {
     sudo yum -y install autoconf automake libtool bison
 }
 
+clean_up() {
+    sudo yum -y remove devtoolset-3*
+    sudo rm -frv /etc/yum.repos.d/slc6-scl.repo
+    sudo yum clean all
+}
+
 install_ruby() {
     wget https://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.7.tar.gz
     tar -xvf ruby-2.1.7.tar.gz
@@ -44,7 +50,7 @@ install_nodejs () {
     cd node-v4.2.1/
     scl enable devtoolset-3 - <<EOF
     ./configure
-    make --jobs=4
+    make --jobs=8
     sudo make install
 EOF
 }
@@ -65,3 +71,5 @@ install_rubygems
 install_nodejs
 install_jekyll
 popd
+
+clean_up
