@@ -31,9 +31,9 @@ do_setup () {
 tear_down() {
     popd
     sudo yum -y remove devtoolset-3*
-    sudo rm -frv /etc/yum.repos.d/slc6-scl.repo
+    sudo rm -fr /etc/yum.repos.d/slc6-scl.repo
     sudo yum clean all
-    sudo rm -frv $SOURCES_PATH
+    sudo rm -fr $SOURCES_PATH
 }
 
 install_ruby() {
