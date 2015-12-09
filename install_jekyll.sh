@@ -22,10 +22,18 @@ install_reqs() {
     sudo yum -y install autoconf automake libtool bison
 }
 
-clean_up() {
+do_setup () {    
+    sudo mkdir -p $SOURCES_PATH
+    sudo chown -R `whoami`:`whoami` $SOURCES_PATH
+    pushd $SOURCES_PATH
+}
+
+tear_down() {
+    popd
     sudo yum -y remove devtoolset-3*
     sudo rm -frv /etc/yum.repos.d/slc6-scl.repo
     sudo yum clean all
+    sudo rm -frv $SOURCES_PATH
 }
 
 install_ruby() {
@@ -59,17 +67,14 @@ install_jekyll () {
     sudo /usr/local/bin/gem install jekyll
 }
 
-sudo mkdir -p $SOURCES_PATH
-sudo chown -R `whoami`:`whoami` $SOURCES_PATH
+do_setup
 
 install_repo
 install_reqs
 
-pushd $SOURCES_PATH
 install_ruby
 install_rubygems
 install_nodejs
 install_jekyll
-popd
 
-clean_up
+tear_down
