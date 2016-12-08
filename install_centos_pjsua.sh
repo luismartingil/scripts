@@ -23,7 +23,6 @@ make
 sudo make install
 
 # Let's create an symbolic link
-find pjproject-$VER/
 cd ; ln -s pjproject-$VER/pjsip-apps/bin/pjsua-x86_64-unknown-linux-gnu pjsua
 
 echo 'execute ./pjsua'
