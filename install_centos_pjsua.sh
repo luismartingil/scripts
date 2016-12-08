@@ -10,7 +10,7 @@ VER=2.5.5
 
 # Installing some stuff
 sudo yum groupinstall -y "Development tools"
-sudo yum install -y alsa-lib alsa-lib-devel alsa-utils binutils boost-devel emacs ffmpeg-devel gcc gcc-c++ libevent-devel libyuv libyuv-devel make python-devel python-gevent tcpdump
+sudo yum install -y alsa-lib alsa-lib-devel alsa-utils binutils boost-devel ffmpeg-devel gcc gcc-c++ libevent-devel libyuv libyuv-devel make python-devel python-gevent tcpdump
 
 cd ; rm -fv pjproject-$VER/
 cd ; wget http://www.pjsip.org/release/$VER/pjproject-$VER.tar.bz2
