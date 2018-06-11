@@ -24,10 +24,10 @@ class SysLogLibHandler(logging.Handler):
         """ Pre. (0 <= n <= 7) """
         try:
             syslog.openlog(logoption=syslog.LOG_PID, facility=self.FACILITY[n])
-        except Exception , err:
+        except Exception as err:
             try:
                 syslog.openlog(syslog.LOG_PID, self.FACILITY[n])
-            except Exception, err:
+            except Exception as err:
                 try:
                     syslog.openlog('my_ident', syslog.LOG_PID, self.FACILITY[n])
                 except:
