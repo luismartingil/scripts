@@ -9,6 +9,8 @@ Implements a new handler for the logging module which uses the pure syslog pytho
 '''
 import logging
 import syslog
+import sys
+import os.path
 
 class SysLogLibHandler(logging.Handler):
     """A logging handler that emits messages to syslog.syslog."""
@@ -20,18 +22,20 @@ class SysLogLibHandler(logging.Handler):
                 syslog.LOG_LOCAL5,
                 syslog.LOG_LOCAL6,
                 syslog.LOG_LOCAL7]
-    def __init__(self, n):
+    def __init__(self, n, logident = None):
         """ Pre. (0 <= n <= 7) """
+        if logident is None:
+            logident = os.path.basename(sys.argv[0])	# Mimic the behavior introduced in Python 3.2
+        else:
+            logident = str(logident)
+
         try:
-            syslog.openlog(logoption=syslog.LOG_PID, facility=self.FACILITY[n])
-        except Exception , err:
+            syslog.openlog(ident = logident, logoption=syslog.LOG_PID, facility=self.FACILITY[n])
+        except Exception as err:
             try:
-                syslog.openlog(syslog.LOG_PID, self.FACILITY[n])
-            except Exception, err:
-                try:
-                    syslog.openlog('my_ident', syslog.LOG_PID, self.FACILITY[n])
-                except:
-                    raise
+                syslog.openlog(logident, syslog.LOG_PID, self.FACILITY[n])
+            except Exception as err:
+                raise
         # We got it
         logging.Handler.__init__(self)
 
