@@ -5,12 +5,9 @@
 # Year: 2018
 #
 
-_zaleos_install_latex() {
-    sudo yum install -y wget perl-devel freetype-devel fontconfig-devel
-    if ___is_centos7; then
-    sudo yum install -y \
-         perl-Digest-MD5
-    fi
+install_latex_centos() {
+    # perl-Digest-MD5 for centos7
+    sudo yum install -y wget perl-devel freetype-devel fontconfig-devel perl-Digest-MD5
     PROFILE=/tmp/texlive.profile
     cat <<'EOF' > ${PROFILE}
 selected_scheme scheme-basic
