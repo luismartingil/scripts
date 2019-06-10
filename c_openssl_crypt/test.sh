@@ -15,7 +15,7 @@ for f in $FILES; do
     echo "Processing ${f} file..."
     echo ''
 
-    PASSWORD=$(openssl rand -hex 48)
+    PASSWORD=$(openssl rand -hex 24)
     # PASSWORD="password"
     echo "Using key:${PASSWORD}"
 
