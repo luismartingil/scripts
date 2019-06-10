@@ -1,5 +1,4 @@
 ```
-
 $ make test
 rm -f *.o *~ *.crypt crypt
 gcc -g -Wall -Wextra -Werror -c crypt.c -o crypt.o
@@ -158,5 +157,4 @@ Reading "/tmp/tmp.dp7FT0lLhC/file004.bin.cmd.crypt" file... done
 Decrypting "/tmp/tmp.dp7FT0lLhC/file004.bin.cmd.crypt" file to "/tmp/tmp.dp7FT0lLhC/file004.bin.cmd.plain"... done
 Writting "/tmp/tmp.dp7FT0lLhC/file004.bin.cmd.plain" file... done
 tests/file004.bin OK command-line
-
 ```
