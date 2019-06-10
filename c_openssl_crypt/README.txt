@@ -1,4 +1,3 @@
-```
 $ make test
 rm -f *.o *~ *.crypt crypt
 gcc -g -Wall -Wextra -Werror -c crypt.c -o crypt.o
@@ -11,37 +10,43 @@ gcc  crypt.o  utils.o -g -Wall -Wextra -Werror -o crypt -lm -lssl -lcrypto
 
 Processing tests/file001.bin file...
 
-Using key:38e2ea27d1325ff90e12e4f6743c68684a935579b7030bf45df96a2b4cce090c93574464a1ac212638677de0f589d1eb
+Using key:66f4d2241081c67b1cb599b2547dcbf5410b9671390e83aa0598d383277f11691638098afb9ccd361b22d28df7d95e86
 - Testing encrypting and decrypting using C program:
 *) Executing crypt command
-Key: aef7e5586f31d219f6c8e5da28a8226350d79d8c5305aa7fb0ef01cda1f95090
-IV: 97247f9bb0eb0d25287c7ce27e970a46
++ ./crypt encrypt -i tests/file001.bin -o /tmp/tmp.5iRxxhS0YQ/file001.bin.crypt -p 66f4d2241081c67b1cb599b2547dcbf5410b9671390e83aa0598d383277f11691638098afb9ccd361b22d28df7d95e86
+Key: 70f10376342c92f802af80e928b10c44376221122f8c90f8987385af2c1b1083
+IV: 36f70c5b6208c833a177fead5d4ae4b9
 Reading "tests/file001.bin" file... done
-Encrypting "tests/file001.bin" file to "/tmp/tmp.MLW4NW4QZo/file001.bin.crypt"... done
-Writting "/tmp/tmp.MLW4NW4QZo/file001.bin.crypt" file... done
+Encrypting "tests/file001.bin" file to "/tmp/tmp.5iRxxhS0YQ/file001.bin.crypt"... done
+Writting "/tmp/tmp.5iRxxhS0YQ/file001.bin.crypt" file... done
++ set +x
 
 *) Executing crypt command
-Key: aef7e5586f31d219f6c8e5da28a8226350d79d8c5305aa7fb0ef01cda1f95090
-IV: 97247f9bb0eb0d25287c7ce27e970a46
-Reading "/tmp/tmp.MLW4NW4QZo/file001.bin.crypt" file... done
-Decrypting "/tmp/tmp.MLW4NW4QZo/file001.bin.crypt" file to "/tmp/tmp.MLW4NW4QZo/file001.bin.plain"... done
-Writting "/tmp/tmp.MLW4NW4QZo/file001.bin.plain" file... done
++ ./crypt decrypt -i /tmp/tmp.5iRxxhS0YQ/file001.bin.crypt -o /tmp/tmp.5iRxxhS0YQ/file001.bin.plain -p 66f4d2241081c67b1cb599b2547dcbf5410b9671390e83aa0598d383277f11691638098afb9ccd361b22d28df7d95e86
+Key: 70f10376342c92f802af80e928b10c44376221122f8c90f8987385af2c1b1083
+IV: 36f70c5b6208c833a177fead5d4ae4b9
+Reading "/tmp/tmp.5iRxxhS0YQ/file001.bin.crypt" file... done
+Decrypting "/tmp/tmp.5iRxxhS0YQ/file001.bin.crypt" file to "/tmp/tmp.5iRxxhS0YQ/file001.bin.plain"... done
+Writting "/tmp/tmp.5iRxxhS0YQ/file001.bin.plain" file... done
++ set +x
 tests/file001.bin OK
 
 ----------------------------
 - Testing encrypting using openssl command-line and decrypting using C program:
 *) Executing openssl command
-+ openssl enc -aes-256-cbc -k 38e2ea27d1325ff90e12e4f6743c68684a935579b7030bf45df96a2b4cce090c93574464a1ac212638677de0f589d1eb -in tests/file001.bin -nosalt -p -out /tmp/tmp.MLW4NW4QZo/file001.bin.cmd.crypt
-key=AEF7E5586F31D219F6C8E5DA28A8226350D79D8C5305AA7FB0EF01CDA1F95090
-iv =97247F9BB0EB0D25287C7CE27E970A46
++ openssl enc -aes-256-cbc -k 66f4d2241081c67b1cb599b2547dcbf5410b9671390e83aa0598d383277f11691638098afb9ccd361b22d28df7d95e86 -in tests/file001.bin -nosalt -p -out /tmp/tmp.5iRxxhS0YQ/file001.bin.cmd.crypt
+key=70F10376342C92F802AF80E928B10C44376221122F8C90F8987385AF2C1B1083
+iv =36F70C5B6208C833A177FEAD5D4AE4B9
 + set +x
 
 *) Executing crypt command
-Key: aef7e5586f31d219f6c8e5da28a8226350d79d8c5305aa7fb0ef01cda1f95090
-IV: 97247f9bb0eb0d25287c7ce27e970a46
-Reading "/tmp/tmp.MLW4NW4QZo/file001.bin.cmd.crypt" file... done
-Decrypting "/tmp/tmp.MLW4NW4QZo/file001.bin.cmd.crypt" file to "/tmp/tmp.MLW4NW4QZo/file001.bin.cmd.plain"... done
-Writting "/tmp/tmp.MLW4NW4QZo/file001.bin.cmd.plain" file... done
++ ./crypt decrypt -i /tmp/tmp.5iRxxhS0YQ/file001.bin.cmd.crypt -o /tmp/tmp.5iRxxhS0YQ/file001.bin.cmd.plain -p 66f4d2241081c67b1cb599b2547dcbf5410b9671390e83aa0598d383277f11691638098afb9ccd361b22d28df7d95e86
+Key: 70f10376342c92f802af80e928b10c44376221122f8c90f8987385af2c1b1083
+IV: 36f70c5b6208c833a177fead5d4ae4b9
+Reading "/tmp/tmp.5iRxxhS0YQ/file001.bin.cmd.crypt" file... done
+Decrypting "/tmp/tmp.5iRxxhS0YQ/file001.bin.cmd.crypt" file to "/tmp/tmp.5iRxxhS0YQ/file001.bin.cmd.plain"... done
+Writting "/tmp/tmp.5iRxxhS0YQ/file001.bin.cmd.plain" file... done
++ set +x
 tests/file001.bin OK command-line
 
 
@@ -49,37 +54,43 @@ tests/file001.bin OK command-line
 
 Processing tests/file002.bin file...
 
-Using key:4a7aea2cfa6c0295a168df12d7191e43429ada8f98017ed17e0b02b6e2958e6eb1994ddf9fea4ab5b3e0b45cb6f11c72
+Using key:b4adabcd37acbdbf7a834582e69f935286fa815158373d752a690d4a1568c8696e2542e9b58829fb53c8b9f978854097
 - Testing encrypting and decrypting using C program:
 *) Executing crypt command
-Key: 4ffb327d6ad875e9dbbc383711fa45ac61718647350550b73e8a1432d986f628
-IV: 850cc07938a9241c9e7e7cf19aefa7b5
++ ./crypt encrypt -i tests/file002.bin -o /tmp/tmp.8ulDjIkjoP/file002.bin.crypt -p b4adabcd37acbdbf7a834582e69f935286fa815158373d752a690d4a1568c8696e2542e9b58829fb53c8b9f978854097
+Key: 59dcda8648fcac48f616f02f454ed9fd2d0438bf7dc95b412433f2f0377b580f
+IV: 2e1d65d23e0262bc6653ca3d5906904c
 Reading "tests/file002.bin" file... done
-Encrypting "tests/file002.bin" file to "/tmp/tmp.tSCLuGEmWj/file002.bin.crypt"... done
-Writting "/tmp/tmp.tSCLuGEmWj/file002.bin.crypt" file... done
+Encrypting "tests/file002.bin" file to "/tmp/tmp.8ulDjIkjoP/file002.bin.crypt"... done
+Writting "/tmp/tmp.8ulDjIkjoP/file002.bin.crypt" file... done
++ set +x
 
 *) Executing crypt command
-Key: 4ffb327d6ad875e9dbbc383711fa45ac61718647350550b73e8a1432d986f628
-IV: 850cc07938a9241c9e7e7cf19aefa7b5
-Reading "/tmp/tmp.tSCLuGEmWj/file002.bin.crypt" file... done
-Decrypting "/tmp/tmp.tSCLuGEmWj/file002.bin.crypt" file to "/tmp/tmp.tSCLuGEmWj/file002.bin.plain"... done
-Writting "/tmp/tmp.tSCLuGEmWj/file002.bin.plain" file... done
++ ./crypt decrypt -i /tmp/tmp.8ulDjIkjoP/file002.bin.crypt -o /tmp/tmp.8ulDjIkjoP/file002.bin.plain -p b4adabcd37acbdbf7a834582e69f935286fa815158373d752a690d4a1568c8696e2542e9b58829fb53c8b9f978854097
+Key: 59dcda8648fcac48f616f02f454ed9fd2d0438bf7dc95b412433f2f0377b580f
+IV: 2e1d65d23e0262bc6653ca3d5906904c
+Reading "/tmp/tmp.8ulDjIkjoP/file002.bin.crypt" file... done
+Decrypting "/tmp/tmp.8ulDjIkjoP/file002.bin.crypt" file to "/tmp/tmp.8ulDjIkjoP/file002.bin.plain"... done
+Writting "/tmp/tmp.8ulDjIkjoP/file002.bin.plain" file... done
++ set +x
 tests/file002.bin OK
 
 ----------------------------
 - Testing encrypting using openssl command-line and decrypting using C program:
 *) Executing openssl command
-+ openssl enc -aes-256-cbc -k 4a7aea2cfa6c0295a168df12d7191e43429ada8f98017ed17e0b02b6e2958e6eb1994ddf9fea4ab5b3e0b45cb6f11c72 -in tests/file002.bin -nosalt -p -out /tmp/tmp.tSCLuGEmWj/file002.bin.cmd.crypt
-key=4FFB327D6AD875E9DBBC383711FA45AC61718647350550B73E8A1432D986F628
-iv =850CC07938A9241C9E7E7CF19AEFA7B5
++ openssl enc -aes-256-cbc -k b4adabcd37acbdbf7a834582e69f935286fa815158373d752a690d4a1568c8696e2542e9b58829fb53c8b9f978854097 -in tests/file002.bin -nosalt -p -out /tmp/tmp.8ulDjIkjoP/file002.bin.cmd.crypt
+key=59DCDA8648FCAC48F616F02F454ED9FD2D0438BF7DC95B412433F2F0377B580F
+iv =2E1D65D23E0262BC6653CA3D5906904C
 + set +x
 
 *) Executing crypt command
-Key: 4ffb327d6ad875e9dbbc383711fa45ac61718647350550b73e8a1432d986f628
-IV: 850cc07938a9241c9e7e7cf19aefa7b5
-Reading "/tmp/tmp.tSCLuGEmWj/file002.bin.cmd.crypt" file... done
-Decrypting "/tmp/tmp.tSCLuGEmWj/file002.bin.cmd.crypt" file to "/tmp/tmp.tSCLuGEmWj/file002.bin.cmd.plain"... done
-Writting "/tmp/tmp.tSCLuGEmWj/file002.bin.cmd.plain" file... done
++ ./crypt decrypt -i /tmp/tmp.8ulDjIkjoP/file002.bin.cmd.crypt -o /tmp/tmp.8ulDjIkjoP/file002.bin.cmd.plain -p b4adabcd37acbdbf7a834582e69f935286fa815158373d752a690d4a1568c8696e2542e9b58829fb53c8b9f978854097
+Key: 59dcda8648fcac48f616f02f454ed9fd2d0438bf7dc95b412433f2f0377b580f
+IV: 2e1d65d23e0262bc6653ca3d5906904c
+Reading "/tmp/tmp.8ulDjIkjoP/file002.bin.cmd.crypt" file... done
+Decrypting "/tmp/tmp.8ulDjIkjoP/file002.bin.cmd.crypt" file to "/tmp/tmp.8ulDjIkjoP/file002.bin.cmd.plain"... done
+Writting "/tmp/tmp.8ulDjIkjoP/file002.bin.cmd.plain" file... done
++ set +x
 tests/file002.bin OK command-line
 
 
@@ -87,37 +98,43 @@ tests/file002.bin OK command-line
 
 Processing tests/file003.bin file...
 
-Using key:c98c458d836563d9633dd8a970e8b88474a2a3db2363647dc029883015d3e3990f2096277be5b4520d68c1b562a851e0
+Using key:e2d4da463be98036349947b58175b5ee467e8e4f256e266bb2883bc32f738315dafa5234ddc105f19b9049fde88752ad
 - Testing encrypting and decrypting using C program:
 *) Executing crypt command
-Key: 098757663f6458089131d2e5a0b272e811e4ff796b1ba852d11d3ed1d5e99502
-IV: 5b0876fbafdd3b78116d555c48b605d0
++ ./crypt encrypt -i tests/file003.bin -o /tmp/tmp.oYXQC0C5Fi/file003.bin.crypt -p e2d4da463be98036349947b58175b5ee467e8e4f256e266bb2883bc32f738315dafa5234ddc105f19b9049fde88752ad
+Key: 54cbd08f63ac1f0e1f0fef9d75e6555adf5c8abfaad94a5b5780e30b8152630c
+IV: 6e50af5d943ddc4f6354b871ecc79b5d
 Reading "tests/file003.bin" file... done
-Encrypting "tests/file003.bin" file to "/tmp/tmp.DMEsczXlmH/file003.bin.crypt"... done
-Writting "/tmp/tmp.DMEsczXlmH/file003.bin.crypt" file... done
+Encrypting "tests/file003.bin" file to "/tmp/tmp.oYXQC0C5Fi/file003.bin.crypt"... done
+Writting "/tmp/tmp.oYXQC0C5Fi/file003.bin.crypt" file... done
++ set +x
 
 *) Executing crypt command
-Key: 098757663f6458089131d2e5a0b272e811e4ff796b1ba852d11d3ed1d5e99502
-IV: 5b0876fbafdd3b78116d555c48b605d0
-Reading "/tmp/tmp.DMEsczXlmH/file003.bin.crypt" file... done
-Decrypting "/tmp/tmp.DMEsczXlmH/file003.bin.crypt" file to "/tmp/tmp.DMEsczXlmH/file003.bin.plain"... done
-Writting "/tmp/tmp.DMEsczXlmH/file003.bin.plain" file... done
++ ./crypt decrypt -i /tmp/tmp.oYXQC0C5Fi/file003.bin.crypt -o /tmp/tmp.oYXQC0C5Fi/file003.bin.plain -p e2d4da463be98036349947b58175b5ee467e8e4f256e266bb2883bc32f738315dafa5234ddc105f19b9049fde88752ad
+Key: 54cbd08f63ac1f0e1f0fef9d75e6555adf5c8abfaad94a5b5780e30b8152630c
+IV: 6e50af5d943ddc4f6354b871ecc79b5d
+Reading "/tmp/tmp.oYXQC0C5Fi/file003.bin.crypt" file... done
+Decrypting "/tmp/tmp.oYXQC0C5Fi/file003.bin.crypt" file to "/tmp/tmp.oYXQC0C5Fi/file003.bin.plain"... done
+Writting "/tmp/tmp.oYXQC0C5Fi/file003.bin.plain" file... done
++ set +x
 tests/file003.bin OK
 
 ----------------------------
 - Testing encrypting using openssl command-line and decrypting using C program:
 *) Executing openssl command
-+ openssl enc -aes-256-cbc -k c98c458d836563d9633dd8a970e8b88474a2a3db2363647dc029883015d3e3990f2096277be5b4520d68c1b562a851e0 -in tests/file003.bin -nosalt -p -out /tmp/tmp.DMEsczXlmH/file003.bin.cmd.crypt
-key=098757663F6458089131D2E5A0B272E811E4FF796B1BA852D11D3ED1D5E99502
-iv =5B0876FBAFDD3B78116D555C48B605D0
++ openssl enc -aes-256-cbc -k e2d4da463be98036349947b58175b5ee467e8e4f256e266bb2883bc32f738315dafa5234ddc105f19b9049fde88752ad -in tests/file003.bin -nosalt -p -out /tmp/tmp.oYXQC0C5Fi/file003.bin.cmd.crypt
+key=54CBD08F63AC1F0E1F0FEF9D75E6555ADF5C8ABFAAD94A5B5780E30B8152630C
+iv =6E50AF5D943DDC4F6354B871ECC79B5D
 + set +x
 
 *) Executing crypt command
-Key: 098757663f6458089131d2e5a0b272e811e4ff796b1ba852d11d3ed1d5e99502
-IV: 5b0876fbafdd3b78116d555c48b605d0
-Reading "/tmp/tmp.DMEsczXlmH/file003.bin.cmd.crypt" file... done
-Decrypting "/tmp/tmp.DMEsczXlmH/file003.bin.cmd.crypt" file to "/tmp/tmp.DMEsczXlmH/file003.bin.cmd.plain"... done
-Writting "/tmp/tmp.DMEsczXlmH/file003.bin.cmd.plain" file... done
++ ./crypt decrypt -i /tmp/tmp.oYXQC0C5Fi/file003.bin.cmd.crypt -o /tmp/tmp.oYXQC0C5Fi/file003.bin.cmd.plain -p e2d4da463be98036349947b58175b5ee467e8e4f256e266bb2883bc32f738315dafa5234ddc105f19b9049fde88752ad
+Key: 54cbd08f63ac1f0e1f0fef9d75e6555adf5c8abfaad94a5b5780e30b8152630c
+IV: 6e50af5d943ddc4f6354b871ecc79b5d
+Reading "/tmp/tmp.oYXQC0C5Fi/file003.bin.cmd.crypt" file... done
+Decrypting "/tmp/tmp.oYXQC0C5Fi/file003.bin.cmd.crypt" file to "/tmp/tmp.oYXQC0C5Fi/file003.bin.cmd.plain"... done
+Writting "/tmp/tmp.oYXQC0C5Fi/file003.bin.cmd.plain" file... done
++ set +x
 tests/file003.bin OK command-line
 
 
@@ -125,36 +142,41 @@ tests/file003.bin OK command-line
 
 Processing tests/file004.bin file...
 
-Using key:7be87b8de9aa165b707b44997e439028c8f71e4b81de4f2459065204ba0cbbe3598a68621eba0c9d8a4b659b7360bc5a
+Using key:5cff21fabb6f0b77ae89f2e08571704aa5956472763e7a980bf4d4e02dc9337fb6fd74809235e3ba57c55c6f9a68d0e4
 - Testing encrypting and decrypting using C program:
 *) Executing crypt command
-Key: bd5db0c711ab2e65538d20480fa5321add312c90717514b185c34ddb71a600e9
-IV: eefdd976c2221f0341fcf759e7d6006a
++ ./crypt encrypt -i tests/file004.bin -o /tmp/tmp.QZVjJ6hbJE/file004.bin.crypt -p 5cff21fabb6f0b77ae89f2e08571704aa5956472763e7a980bf4d4e02dc9337fb6fd74809235e3ba57c55c6f9a68d0e4
+Key: d1ba7a2083ba9604ec837915afc7bb2927055552cf6a278acd8c197be1e384f4
+IV: e278baff83a4a8bf68ba2378cbce6073
 Reading "tests/file004.bin" file... done
-Encrypting "tests/file004.bin" file to "/tmp/tmp.dp7FT0lLhC/file004.bin.crypt"... done
-Writting "/tmp/tmp.dp7FT0lLhC/file004.bin.crypt" file... done
+Encrypting "tests/file004.bin" file to "/tmp/tmp.QZVjJ6hbJE/file004.bin.crypt"... done
+Writting "/tmp/tmp.QZVjJ6hbJE/file004.bin.crypt" file... done
++ set +x
 
 *) Executing crypt command
-Key: bd5db0c711ab2e65538d20480fa5321add312c90717514b185c34ddb71a600e9
-IV: eefdd976c2221f0341fcf759e7d6006a
-Reading "/tmp/tmp.dp7FT0lLhC/file004.bin.crypt" file... done
-Decrypting "/tmp/tmp.dp7FT0lLhC/file004.bin.crypt" file to "/tmp/tmp.dp7FT0lLhC/file004.bin.plain"... done
-Writting "/tmp/tmp.dp7FT0lLhC/file004.bin.plain" file... done
++ ./crypt decrypt -i /tmp/tmp.QZVjJ6hbJE/file004.bin.crypt -o /tmp/tmp.QZVjJ6hbJE/file004.bin.plain -p 5cff21fabb6f0b77ae89f2e08571704aa5956472763e7a980bf4d4e02dc9337fb6fd74809235e3ba57c55c6f9a68d0e4
+Key: d1ba7a2083ba9604ec837915afc7bb2927055552cf6a278acd8c197be1e384f4
+IV: e278baff83a4a8bf68ba2378cbce6073
+Reading "/tmp/tmp.QZVjJ6hbJE/file004.bin.crypt" file... done
+Decrypting "/tmp/tmp.QZVjJ6hbJE/file004.bin.crypt" file to "/tmp/tmp.QZVjJ6hbJE/file004.bin.plain"... done
+Writting "/tmp/tmp.QZVjJ6hbJE/file004.bin.plain" file... done
++ set +x
 tests/file004.bin OK
 
 ----------------------------
 - Testing encrypting using openssl command-line and decrypting using C program:
 *) Executing openssl command
-+ openssl enc -aes-256-cbc -k 7be87b8de9aa165b707b44997e439028c8f71e4b81de4f2459065204ba0cbbe3598a68621eba0c9d8a4b659b7360bc5a -in tests/file004.bin -nosalt -p -out /tmp/tmp.dp7FT0lLhC/file004.bin.cmd.crypt
-key=BD5DB0C711AB2E65538D20480FA5321ADD312C90717514B185C34DDB71A600E9
-iv =EEFDD976C2221F0341FCF759E7D6006A
++ openssl enc -aes-256-cbc -k 5cff21fabb6f0b77ae89f2e08571704aa5956472763e7a980bf4d4e02dc9337fb6fd74809235e3ba57c55c6f9a68d0e4 -in tests/file004.bin -nosalt -p -out /tmp/tmp.QZVjJ6hbJE/file004.bin.cmd.crypt
+key=D1BA7A2083BA9604EC837915AFC7BB2927055552CF6A278ACD8C197BE1E384F4
+iv =E278BAFF83A4A8BF68BA2378CBCE6073
 + set +x
 
 *) Executing crypt command
-Key: bd5db0c711ab2e65538d20480fa5321add312c90717514b185c34ddb71a600e9
-IV: eefdd976c2221f0341fcf759e7d6006a
-Reading "/tmp/tmp.dp7FT0lLhC/file004.bin.cmd.crypt" file... done
-Decrypting "/tmp/tmp.dp7FT0lLhC/file004.bin.cmd.crypt" file to "/tmp/tmp.dp7FT0lLhC/file004.bin.cmd.plain"... done
-Writting "/tmp/tmp.dp7FT0lLhC/file004.bin.cmd.plain" file... done
++ ./crypt decrypt -i /tmp/tmp.QZVjJ6hbJE/file004.bin.cmd.crypt -o /tmp/tmp.QZVjJ6hbJE/file004.bin.cmd.plain -p 5cff21fabb6f0b77ae89f2e08571704aa5956472763e7a980bf4d4e02dc9337fb6fd74809235e3ba57c55c6f9a68d0e4
+Key: d1ba7a2083ba9604ec837915afc7bb2927055552cf6a278acd8c197be1e384f4
+IV: e278baff83a4a8bf68ba2378cbce6073
+Reading "/tmp/tmp.QZVjJ6hbJE/file004.bin.cmd.crypt" file... done
+Decrypting "/tmp/tmp.QZVjJ6hbJE/file004.bin.cmd.crypt" file to "/tmp/tmp.QZVjJ6hbJE/file004.bin.cmd.plain"... done
+Writting "/tmp/tmp.QZVjJ6hbJE/file004.bin.cmd.plain" file... done
++ set +x
 tests/file004.bin OK command-line
-```

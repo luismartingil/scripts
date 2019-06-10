@@ -27,12 +27,16 @@ for f in $FILES; do
     CRYPTED_FILE=${NAME_TMP}.crypt
     DECRYPTED_FILE=${NAME_TMP}.plain
     # Encrypting
-    echo '*) Executing crypt command'    
+    echo '*) Executing crypt command'
+    set -x    
     $VALGRIND ./crypt encrypt -i ${f} -o ${CRYPTED_FILE} -p ${PASSWORD}
+    set +x
     # Decrypting
     echo ''
-    echo '*) Executing crypt command'    
+    echo '*) Executing crypt command'
+    set -x
     $VALGRIND ./crypt decrypt -i ${CRYPTED_FILE} -o ${DECRYPTED_FILE} -p ${PASSWORD}
+    set +x
     if diff ${f} ${DECRYPTED_FILE}; then
     	echo "${green}${f} OK${reset}"
     else
@@ -52,7 +56,9 @@ for f in $FILES; do
     # Decrypting
     echo ''
     echo '*) Executing crypt command'
+    set -x
     $VALGRIND ./crypt decrypt -i ${CRYPTED_FILE_CMD} -o ${DECRYPTED_FILE_CMD} -p ${PASSWORD}
+    set +x
     if diff ${f} ${DECRYPTED_FILE_CMD}; then
     	echo "${green}${f} OK command-line${reset}"
     else
