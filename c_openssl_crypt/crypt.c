@@ -7,7 +7,6 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include <string.h>
-#include <openssl/evp.h>
 
 #include "utils.h"
 
