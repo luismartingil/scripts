@@ -1,6 +1,6 @@
 TARGET = crypt
 CC = gcc
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror -Wpointer-sign
 LDFLAGS = -lm -lssl -lcrypto
 
 OBJECTS = $(patsubst %.c, %.o, $(wildcard *.c))

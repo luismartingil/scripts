@@ -135,7 +135,6 @@ int crypt_file(char* operation, char *input_file, char * output_file,
   char* bytes;
   int len;
   long pos;
-  // unsigned char text[SIZE];
 
   const EVP_CIPHER *cipher;
   const EVP_MD *dgst = NULL;
