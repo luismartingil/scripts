@@ -25,6 +25,8 @@ BYTES=1024
 TIME_UNIT=24 * 60 * 60
 HASH_ALGORITHM='sha256'
 SERIAL_NUMBER=1000
+VALID_DAYS_BEFORE=5 # Valid starting X days ago (helps when inmediatly validating)
+VALID_YEARS_AFTER=10 # Valid until now + X number of years
 
 EXT_CERT='crt'
 EXT_KEY='key'
@@ -54,8 +56,8 @@ class CAOpenSSL(object):
         cert.get_subject().OU = CA_OU
         cert.get_subject().CN = cn
         cert.set_serial_number(SERIAL_NUMBER)
-        cert.gmtime_adj_notBefore(0)
-        cert.gmtime_adj_notAfter(TIME_UNIT * 10 * 365)
+        cert.gmtime_adj_notBefore(- TIME_UNIT * VALID_DAYS_BEFORE)
+        cert.gmtime_adj_notAfter(TIME_UNIT * 365 * VALID_YEARS_AFTER)
         cert.set_issuer(cert.get_subject())
         # Generate key
         key = crypto.PKey()
