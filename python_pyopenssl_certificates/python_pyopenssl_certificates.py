@@ -28,11 +28,11 @@ SERIAL_NUMBER=1000
 EXT_CERT='crt'
 EXT_KEY='key'
 
-CA_C="ES"
-CA_ST='Madrid'
-CA_L='Madrid'
-CA_O='ca.sipplauncher'
-CA_OU='ca.sipplauncher'
+CA_C="ES" # countryName
+CA_ST='Madrid' # stateOrProvinceName
+CA_L='Madrid' # localityName
+CA_O='ca.sipplauncher' # organizationName
+CA_OU='ca.sipplauncher' # organizationalUnitName
 
 
 class CAOpenSSL(object):
@@ -42,7 +42,7 @@ class CAOpenSSL(object):
 
     @staticmethod
     def _create_cert_key_pair(cn):
-        """ Generates a given cert and key using the CN param
+        """ Generates a given cert and key using the CN (commonName) param
         """
         # Generate 509 cert
         cert = crypto.X509()
@@ -78,7 +78,12 @@ class CAOpenSSL(object):
     def create_ca_cert(self, cn, prefix='rootCA'):
         """ Creates CA cert
         """
-        self.ca_cert, self.ca_key = CAOpenSSL._create_cert_key_pair(cn)       
+        self.ca_cert, self.ca_key = CAOpenSSL._create_cert_key_pair(cn)
+        self.ca_cert.add_extensions([
+            crypto.X509Extension(b'basicConstraints', True, b'CA:TRUE'),
+            crypto.X509Extension(b'subjectKeyIdentifier', False, b'hash', subject=self.ca_cert)
+        ])
+
         CAOpenSSL._write_cert_key_pair(self.ca_cert, self.ca_key, cn, prefix)
 
     def create_server_cert(self, cn, prefix='server'):
@@ -95,6 +100,7 @@ ca.create_ca_cert('ca.zaleos.net')
 
 # Create as much as ca-signed certificates as needed
 for ip in [200, 190, 191]:
+    # passing CN - commonName
     cn = '10.22.22.{0}'.format(ip)
     ca.create_server_cert(cn)
 
