@@ -8,6 +8,7 @@ Generates a CA certificate and 509 certificates
 
 - Needs PyOpenSSL (pip install PyOpenSSL)
 - Inspired by https://gist.github.com/eskil/2338529
+- https://www.programcreek.com/python/example/83358/OpenSSL.crypto.X509Extension
 
 @author:  Luis Martin Gil
 @contact: martingil.luis@gmail.com
